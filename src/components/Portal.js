@@ -233,76 +233,65 @@ const Portal = () => {
             <Header>Copied to clipboard!</Header>
           </Segment>
         </TransitionablePortal>
-        <Container textAlign="center" style={{ margin: "auto", width: "100%" }}>
-          <Grid
-            columns={3}
-            stackable
-            textAlign="center"
-            style={{ height: "10vh" }}
-          >
-            <Grid.Row verticalAlign="middle">
-              <Grid.Column>
-                <Button.Group style={{ width: "100%" }}>
-                  <Button onClick={() => goHome()}>Home</Button>
-                  <Button onClick={() => goBack()}>Back</Button>
-                  <Button onClick={() => disconnect()}>Disconnect</Button>
-                </Button.Group>
-              </Grid.Column>
+        <Grid columns={3} textAlign="center" style={{ maxHeight: "15vh" }}>
+          <Grid.Row verticalAlign="middle">
+            <Grid.Column>
+              <Button.Group style={{ width: "100%" }}>
+                <Button onClick={() => goHome()}>Home</Button>
+                <Button onClick={() => goBack()}>Back</Button>
+                <Button onClick={() => disconnect()}>Disconnect</Button>
+              </Button.Group>
+            </Grid.Column>
 
-              <Grid.Column>
-                <Message
-                  floating
-                  style={{ width: "100%", height: "100%", display: "flex" }}
-                >
-                  <Message.Content>
-                    {loading ? (
-                      <Icon
-                        fitted
-                        circular
-                        size="large"
-                        name="circle notched"
-                        inverted
-                        loading
-                      />
-                    ) : (
-                      <Icon
-                        fitted
-                        circular
-                        size="large"
-                        name="circle notched"
-                      />
-                    )}
-                    {`   Viewing ${files.length} items in ${
-                      pathName === "" ? "/" : pathName
-                    }`}
-                  </Message.Content>
-                </Message>
-              </Grid.Column>
-              <Grid.Column style={{ margin: "auto" }}>
-                <Menu floated="right">
-                  <Dropdown item text={`Sort By: ${sort}`}>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => sortNameAscending()}>
-                        A-Z (Default)
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => sortNameDescending()}>
-                        Z-A
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => sortDateAscending()}>
-                        Oldest
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => sortDateDescending()}>
-                        Newest
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Menu>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
+            <Grid.Column>
+              <Message
+                info
+                compact
+                style={{ width: "100%", height: "100%", display: "flex" }}
+              >
+                <Message.Content>
+                  {loading ? (
+                    <Icon
+                      fitted
+                      circular
+                      size="large"
+                      name="circle notched"
+                      inverted
+                      loading
+                    />
+                  ) : (
+                    <Icon fitted circular size="large" name="circle notched" />
+                  )}
+                  {`   Viewing ${files.length} items in ${
+                    pathName === "" ? "/" : pathName
+                  }`}
+                </Message.Content>
+              </Message>
+            </Grid.Column>
+            <Grid.Column style={{ margin: "auto" }}>
+              <Menu floated="right">
+                <Dropdown item text={`Sort By: ${sort}`}>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => sortNameAscending()}>
+                      A-Z (Default)
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortNameDescending()}>
+                      Z-A
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortDateAscending()}>
+                      Oldest
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => sortDateDescending()}>
+                      Newest
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Menu>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
-        <Item.Group>{files}</Item.Group>
+        <Item.Group style={{ marginTop: "10px" }}>{files}</Item.Group>
         <p>{pathName}</p>
       </Container>
     )
