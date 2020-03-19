@@ -38,7 +38,9 @@ const Portal = () => {
   const [error, setError] = useState(false)
 
   const url =
-    process.env.NODE_ENV === "development" ? process.env.URL : "localhost:3000"
+    process.env.NODE_ENV === "development"
+      ? process.env.GATSBY_FTPURL
+      : "localhost:3000"
 
   // fired on every page navigation and login
   const navigate = () => {
@@ -50,7 +52,7 @@ const Portal = () => {
       path: pathName,
     }
 
-    var simpleCrypto = new SimpleCrypto(process.env.PASSWORD)
+    var simpleCrypto = new SimpleCrypto(process.env.GATSBY_PASSWORD)
     var cipherText = simpleCrypto.encrypt(JSON.stringify(data))
 
     axios({
@@ -156,7 +158,7 @@ const Portal = () => {
       ftpUser: username,
     }
 
-    var simpleCrypto = new SimpleCrypto(process.env.PASSWORD)
+    var simpleCrypto = new SimpleCrypto(process.env.GATSBY_PASSWORD)
     var cipherText = simpleCrypto.encrypt(JSON.stringify(data))
 
     // logs user out from backend if still logged in
@@ -186,10 +188,10 @@ const Portal = () => {
   }
 
   const pinLogin = () => {
-    if (pin === process.env.PIN) {
-      setHost(process.env.PINHOST)
-      setUsername(process.env.PINUSER)
-      setPassword(process.env.PINPASS)
+    if (pin === process.env.GATSBY_PIN) {
+      setHost(process.env.GATSBY_PINHOST)
+      setUsername(process.env.GATSBY_PINUSER)
+      setPassword(process.env.GATSBY_PINPASS)
       setLoading(true)
     }
   }
