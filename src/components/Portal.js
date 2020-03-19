@@ -37,10 +37,7 @@ const Portal = () => {
   const [pin, setPin] = useState("")
   const [error, setError] = useState(false)
 
-  const url =
-    process.env.NODE_ENV === "development"
-      ? process.env.GATSBY_FTPURL
-      : "localhost:3000"
+  const url = process.env.GATSBY_FTPURL
 
   // fired on every page navigation and login
   const navigate = () => {
