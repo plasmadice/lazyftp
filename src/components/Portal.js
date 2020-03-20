@@ -16,6 +16,7 @@ import {
   Form,
   Divider,
   Checkbox,
+  Responsive,
 } from "semantic-ui-react"
 import axios from "axios"
 import arraySort from "array-sort"
@@ -275,6 +276,21 @@ const Portal = () => {
   if (isLoggedIn && files.length) {
     return (
       <Container style={{ width: "100%", height: "100%" }}>
+        {loading ? (
+          <Icon
+            fitted
+            circular
+            size="large"
+            name="circle notched"
+            inverted
+            loading
+          />
+        ) : (
+          <Icon fitted circular size="large" name="circle notched" />
+        )}
+        {`   Viewing ${files.length} items in ${
+          pathName === "" ? "/" : pathName
+        }`}
         <TransitionablePortal
           open={copyPortal}
           transition={{ animation: "fade", duration: 600 }}
@@ -290,10 +306,15 @@ const Portal = () => {
             <Header>Copied to clipboard!</Header>
           </Segment>
         </TransitionablePortal>
-        <Grid columns={3} textAlign="center" style={{ maxHeight: "15vh" }}>
-          <Grid.Row verticalAlign="middle" style={{ pointerEvents: "none" }}>
-            <Grid.Column style={{ pointerEvents: "auto" }}>
-              <Button.Group style={{ width: "100%" }}>
+        <Grid
+          stackable
+          columns={2}
+          textAlign="center"
+          style={{ maxHeight: "15vh" }}
+        >
+          <Grid.Row>
+            <Grid.Column>
+              <Button.Group floated="left">
                 <Button color="grey" onClick={() => goHome()}>
                   Home
                 </Button>
@@ -305,29 +326,7 @@ const Portal = () => {
                 </Button>
               </Button.Group>
             </Grid.Column>
-
             <Grid.Column>
-              <Message info icon size="small">
-                <Message.Content>
-                  {loading ? (
-                    <Icon
-                      fitted
-                      circular
-                      size="large"
-                      name="circle notched"
-                      inverted
-                      loading
-                    />
-                  ) : (
-                    <Icon fitted circular size="large" name="circle notched" />
-                  )}
-                  {`   Viewing ${files.length} items in ${
-                    pathName === "" ? "/" : pathName
-                  }`}
-                </Message.Content>
-              </Message>
-            </Grid.Column>
-            <Grid.Column style={{ margin: "auto", pointerEvents: "auto" }}>
               <Menu floated="right">
                 <Dropdown item text={`Sort By: ${sort}`}>
                   <Dropdown.Menu>
@@ -411,6 +410,15 @@ const Portal = () => {
             </Form>
           </Grid.Column>
 
+          <Responsive
+            style={{ margin: "auto" }}
+            as={Divider}
+            vertical
+            maxWidth={767}
+          >
+            Or
+          </Responsive>
+
           <Grid.Column verticalAlign="middle">
             <Form onSubmit={() => pinLogin()}>
               <Form.Input
@@ -430,7 +438,9 @@ const Portal = () => {
           </Grid.Column>
         </Grid>
 
-        <Divider vertical>Or</Divider>
+        <Responsive as={Divider} vertical minWidth={768}>
+          Or
+        </Responsive>
       </Segment>
     )
   }
