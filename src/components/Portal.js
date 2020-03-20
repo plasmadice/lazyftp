@@ -102,6 +102,11 @@ const Portal = () => {
 
     // Makes an <Item /> for every item
     const preparedItems = items.map((item, index) => {
+      const copyPath = `ftp://${username}:${password}@ftp.national-anime.com${pathName}/${item.name}`
+
+      const linkPath = `ftp://${username}:${password}@ftp.national-anime.com${encodeURI(
+        pathName
+      )}/${encodeURIComponent(item.name)}`
       return (
         <Item key={index} name={item.name}>
           <Item.Content>
@@ -116,11 +121,7 @@ const Portal = () => {
                   // opens transition portal to show user what happened
                   setCopyPortal(true)
                   // copy to clipboard on click
-                  copy(
-                    `ftp://${username}:${password}@ftp.national-anime.com${encodeURI(
-                      pathName
-                    )}/${encodeURI(item.name)}`
-                  )
+                  copy(linkPath)
                 }
               }}
             >
@@ -135,7 +136,36 @@ const Portal = () => {
               )}
               {item.name}
             </Item.Header>
-            <Item.Meta>Placeholder</Item.Meta>
+            <Item.Extra>
+              <Button
+                size="mini"
+                icon
+                labelPosition="left"
+                onClick={() => {
+                  // opens transition portal to show user what happened
+                  setCopyPortal(true)
+                  // copy to clipboard on click
+                  copy(copyPath)
+                }}
+              >
+                <Icon color="black" name="copy" />
+                Copy Path
+              </Button>
+              <Button
+                size="mini"
+                icon
+                labelPosition="left"
+                onClick={() => {
+                  // opens transition portal to show user what happened
+                  setCopyPortal(true)
+                  // copy to clipboard on click
+                  copy(linkPath)
+                }}
+              >
+                Copy URI
+                <Icon color="black" name="chain" />
+              </Button>
+            </Item.Extra>
             <Item.Extra>Last Modified: {item.date}</Item.Extra>
           </Item.Content>
         </Item>
@@ -251,9 +281,15 @@ const Portal = () => {
           <Grid.Row verticalAlign="middle" style={{ pointerEvents: "none" }}>
             <Grid.Column style={{ pointerEvents: "auto" }}>
               <Button.Group style={{ width: "100%" }}>
-                <Button onClick={() => goHome()}>Home</Button>
-                <Button onClick={() => goBack()}>Back</Button>
-                <Button onClick={() => disconnect()}>Disconnect</Button>
+                <Button color="grey" onClick={() => goHome()}>
+                  Home
+                </Button>
+                <Button color="grey" onClick={() => goBack()}>
+                  Back
+                </Button>
+                <Button color="black" onClick={() => disconnect()}>
+                  Disconnect
+                </Button>
               </Button.Group>
             </Grid.Column>
 
