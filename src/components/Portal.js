@@ -165,6 +165,19 @@ const Portal = () => {
                 Copy URI
                 <Icon color="black" name="chain" />
               </Button>
+              {item.type !== 2 ? (
+                <Button
+                  size="mini"
+                  icon
+                  labelPosition="left"
+                  as="a"
+                  href={copyPath}
+                  download={item.name}
+                >
+                  Download
+                  <Icon color="black" name="download" />
+                </Button>
+              ) : null}
             </Item.Extra>
             <Item.Extra>Last Modified: {item.date}</Item.Extra>
           </Item.Content>
