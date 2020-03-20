@@ -41,8 +41,6 @@ const Portal = () => {
 
   // ftp url pulled in from .env
   const url = process.env.GATSBY_FTPURL
-  // determin float position of menu items
-  const floatPosition = window.innerWidth <= 500 ? "right" : "left"
 
   // fired on every page navigation and login
   const navigate = () => {
