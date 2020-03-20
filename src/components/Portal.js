@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import {
   Button,
-  Input,
   Item,
   Container,
   Icon,
@@ -16,6 +15,7 @@ import {
   Header,
   Form,
   Divider,
+  Checkbox,
 } from "semantic-ui-react"
 import axios from "axios"
 import arraySort from "array-sort"
@@ -29,6 +29,7 @@ const Portal = () => {
   const [host, setHost] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [secure, setSecure] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [pathName, setPathName] = useState("")
   const [sort, setSort] = useState("A-Z (Default)")
@@ -47,6 +48,7 @@ const Portal = () => {
       ftpUser: username,
       ftpPassword: password,
       path: pathName,
+      ftpSecure: secure,
     }
 
     var simpleCrypto = new SimpleCrypto(process.env.GATSBY_PASSWORD)
@@ -124,6 +126,10 @@ const Portal = () => {
             >
               {item.type === 2 ? (
                 <Icon name="folder open" />
+              ) : item.name.slice(-3) === "zip" ? (
+                <Icon name="zip" />
+              ) : item.name.slice(-3) === "rar" ? (
+                <Icon name="zip" />
               ) : (
                 <Icon name="video camera" />
               )}
@@ -184,11 +190,19 @@ const Portal = () => {
     setSort("Newest")
   }
 
+  // dev pin login
   const pinLogin = () => {
     if (pin === process.env.GATSBY_PIN) {
       setHost(process.env.GATSBY_PINHOST)
       setUsername(process.env.GATSBY_PINUSER)
       setPassword(process.env.GATSBY_PINPASS)
+      setSecure(process.env.GATSBY_PINSECURE === "true")
+      setLoading(true)
+    } else if (pin === process.env.GATSBY_PIN2) {
+      setHost(process.env.GATSBY_PINHOST)
+      setUsername(process.env.GATSBY_PINUSER)
+      setPassword(process.env.GATSBY_PINPASS)
+      setSecure(process.env.GATSBY_PINSECURE2 === "true")
       setLoading(true)
     }
   }
@@ -234,8 +248,8 @@ const Portal = () => {
           </Segment>
         </TransitionablePortal>
         <Grid columns={3} textAlign="center" style={{ maxHeight: "15vh" }}>
-          <Grid.Row verticalAlign="middle">
-            <Grid.Column>
+          <Grid.Row verticalAlign="middle" style={{ pointerEvents: "none" }}>
+            <Grid.Column style={{ pointerEvents: "auto" }}>
               <Button.Group style={{ width: "100%" }}>
                 <Button onClick={() => goHome()}>Home</Button>
                 <Button onClick={() => goBack()}>Back</Button>
@@ -244,11 +258,7 @@ const Portal = () => {
             </Grid.Column>
 
             <Grid.Column>
-              <Message
-                info
-                compact
-                style={{ width: "100%", height: "100%", display: "flex" }}
-              >
+              <Message info icon size="small">
                 <Message.Content>
                   {loading ? (
                     <Icon
@@ -268,7 +278,7 @@ const Portal = () => {
                 </Message.Content>
               </Message>
             </Grid.Column>
-            <Grid.Column style={{ margin: "auto" }}>
+            <Grid.Column style={{ margin: "auto", pointerEvents: "auto" }}>
               <Menu floated="right">
                 <Dropdown item text={`Sort By: ${sort}`}>
                   <Dropdown.Menu>
@@ -291,7 +301,9 @@ const Portal = () => {
           </Grid.Row>
         </Grid>
 
-        <Item.Group style={{ marginTop: "10px" }}>{files}</Item.Group>
+        <Item.Group divided style={{ marginTop: "10px" }}>
+          {files}
+        </Item.Group>
         <p>{pathName}</p>
       </Container>
     )
@@ -331,6 +343,13 @@ const Portal = () => {
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Field
+                control={Checkbox}
+                label="Use FTPES/TLS encryption"
+                onChange={() => setSecure(!secure)}
+                checked={secure}
+                style={{ textAlign: "center" }}
               />
               <Message
                 error

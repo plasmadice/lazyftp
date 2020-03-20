@@ -38,7 +38,8 @@ Netlify URL: https://elastic-panini-7bfc59.netlify.com/
 -Launch VLC on click - Currently pretty easy to do using node.js, but on the frontend it's a different matter. This stackoverflow page provides some info on how that works if anyone is interested.
 -VLC playlist - after VLC implementation, queuing up anime would be somewhat trivial
 -Download to computer - I don't think this is that difficult to implement. But every time I think about it I want to make a desktop app variant using Electron or something. So that's on the backburner.
--SFTP login (Maybe. Not sure what the real differences are between FTP and SFTP in this scenario). This also falls under what I would consider "normal" ftp use so this would be implemented along with "normal" ftp features
+-Implement pagination using semantic-ui-react pagination component
+-Change message component to breadcrumb
 
 ## Conclusion:
 
