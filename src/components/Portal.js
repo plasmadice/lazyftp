@@ -39,7 +39,10 @@ const Portal = () => {
   const [pin, setPin] = useState("")
   const [error, setError] = useState(false)
 
+  // ftp url pulled in from .env
   const url = process.env.GATSBY_FTPURL
+  // determin float position of menu items
+  const floatPosition = window.innerWidth <= 500 ? "right" : "left"
 
   // fired on every page navigation and login
   const navigate = () => {
@@ -310,11 +313,15 @@ const Portal = () => {
           stackable
           columns={2}
           textAlign="center"
-          style={{ maxHeight: "15vh" }}
+          style={{
+            maxHeight: "15vh",
+            pointerEvents: "none",
+            margin: "10px auto 50px auto",
+          }}
         >
           <Grid.Row>
             <Grid.Column>
-              <Button.Group floated="left">
+              <Button.Group floated="left" style={{ pointerEvents: "auto" }}>
                 <Button color="grey" onClick={() => goHome()}>
                   Home
                 </Button>
@@ -327,7 +334,7 @@ const Portal = () => {
               </Button.Group>
             </Grid.Column>
             <Grid.Column>
-              <Menu floated="right">
+              <Menu floated="right" compact style={{ pointerEvents: "auto" }}>
                 <Dropdown item text={`Sort By: ${sort}`}>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => sortNameAscending()}>
