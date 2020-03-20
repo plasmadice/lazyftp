@@ -410,13 +410,8 @@ const Portal = () => {
             </Form>
           </Grid.Column>
 
-          <Responsive
-            style={{ margin: "auto" }}
-            as={Divider}
-            vertical
-            maxWidth={767}
-          >
-            Or
+          <Responsive style={{ margin: "auto" }} as={"h4"} maxWidth={767}>
+            -OR-
           </Responsive>
 
           <Grid.Column verticalAlign="middle">
