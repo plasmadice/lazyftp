@@ -119,6 +119,9 @@ const Portal = () => {
       const linkPath = `ftp://${username}:${password}@ftp.national-anime.com${encodeURI(
         pathName
       )}/${encodeURIComponent(item.name)}`
+      console.log("copyPath:", copyPath)
+      console.log("linkPath:", linkPath)
+      console.log("pathName:", pathName)
       return (
         <Item key={index} name={item.name}>
           <Item.Content>
@@ -127,6 +130,12 @@ const Portal = () => {
               onClick={() => {
                 // if folder
                 if (item.type === 2) {
+                  console.log(
+                    "`${pathName}/${item.name}`:",
+                    `${pathName}/${item.name}`
+                  )
+                  console.log("`${pathName}/`:", `${pathName}/`)
+                  console.log("`${item.name}`:", `${item.name}`)
                   setPathName(`${pathName}/${item.name}`)
                   setLoading(true)
                 } else {
@@ -174,20 +183,24 @@ const Portal = () => {
                   copy(linkPath)
                 }}
               >
-                Copy URI
+                Copy FTP Link
                 <Icon color="black" name="chain" />
               </Button>
               {item.type !== 2 ? (
-                <Button
-                  size="mini"
-                  icon
-                  labelPosition="left"
-                  as="a"
-                  href={copyPath}
-                  download={item.name}
-                >
-                  Download
-                  <Icon color="black" name="download" />
+                <Button size="mini" icon labelPosition="left" color="orange">
+                  Right-Click to Open in VLC
+                  <Icon name="download" />
+                  <video
+                    src={linkPath}
+                    style={{
+                      position: "absolute",
+                      objectFit: "cover",
+                      height: "100%",
+                      width: "100%",
+                      left: "0px",
+                      top: "0px",
+                    }}
+                  />
                 </Button>
               ) : null}
             </Item.Extra>
