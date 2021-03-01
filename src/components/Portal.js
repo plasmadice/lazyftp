@@ -80,7 +80,8 @@ const Portal = () => {
         // login if not logged in
         if (isLoggedIn === false) setIsLoggedIn(true)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         setError(true)
         setLoading(false)
       })
@@ -126,16 +127,10 @@ const Portal = () => {
         <Item key={index} name={item.name}>
           <Item.Content>
             <Item.Header
-              as="a"
+              as={item.type === 2 ? "a" : null}
               onClick={() => {
                 // if folder
                 if (item.type === 2) {
-                  console.log(
-                    "`${pathName}/${item.name}`:",
-                    `${pathName}/${item.name}`
-                  )
-                  console.log("`${pathName}/`:", `${pathName}/`)
-                  console.log("`${item.name}`:", `${item.name}`)
                   setPathName(`${pathName}/${item.name}`)
                   setLoading(true)
                 } else {
