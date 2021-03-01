@@ -22,7 +22,7 @@ import axios from "axios"
 import arraySort from "array-sort"
 import moment from "moment"
 import copy from "copy-text-to-clipboard"
-import SimpleCrypto from "simple-crypto-js"
+var CryptoJS = require("crypto-js")
 
 const Portal = () => {
   const [data, setData] = useState([])
@@ -53,18 +53,18 @@ const Portal = () => {
       ftpSecure: secure,
     }
 
-    var simpleCrypto = new SimpleCrypto(process.env.GATSBY_PASSWORD)
-    var cipherText = simpleCrypto.encrypt(JSON.stringify(data))
+    let cipherText = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      process.env.GATSBY_PASSWORD
+    ).toString()
 
     axios({
       method: "post",
       url: `${url}/navigate`,
-      data: {
-        cipherText,
-      },
+      data: { cipherText },
     })
-      .then(res => {
-        const items = res.data.map(item => {
+      .then((res) => {
+        const items = res.data.map((item) => {
           return {
             name: item.name,
             type: item.type,
@@ -219,16 +219,16 @@ const Portal = () => {
       ftpUser: username,
     }
 
-    var simpleCrypto = new SimpleCrypto(process.env.GATSBY_PASSWORD)
-    var cipherText = simpleCrypto.encrypt(JSON.stringify(data))
+    let cipherText = CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      process.env.GATSBY_PASSWORD
+    ).toString()
 
     // logs user out from backend if still logged in
     axios({
       method: "post",
       url: `${url}/disconnect`,
-      data: {
-        cipherText,
-      },
+      data: { cipherText },
     })
     setIsLoggedIn(false)
     setPathName("")
@@ -392,7 +392,7 @@ const Portal = () => {
                 iconPosition="left"
                 label="Server Address"
                 value={host}
-                onChange={e => setHost(e.target.value)}
+                onChange={(e) => setHost(e.target.value)}
               />
               <Form.Input
                 icon="user"
@@ -400,7 +400,7 @@ const Portal = () => {
                 label="Username"
                 type="username"
                 value={username}
-                onChange={e => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <Form.Input
                 icon="lock"
@@ -408,7 +408,7 @@ const Portal = () => {
                 label="Password"
                 type="password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <Form.Field
                 control={Checkbox}
@@ -440,7 +440,7 @@ const Portal = () => {
                 label="Admin Access"
                 type="password"
                 value={pin}
-                onChange={e => setPin(e.target.value)}
+                onChange={(e) => setPin(e.target.value)}
               />
             </Form>
             <Button

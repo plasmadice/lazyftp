@@ -1,13 +1,14 @@
 {
   "name": "gatsby-starter-default",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A simple ftp frontend",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "",
   "dependencies": {
     "array-sort": "^1.0.0",
     "axios": "^0.19.2",
     "copy-text-to-clipboard": "^2.1.1",
+    "crypto-js": "^3.3.0",
     "gatsby": "^2.19.45",
     "gatsby-image": "^2.2.44",
     "gatsby-plugin-manifest": "^2.2.48",
@@ -22,8 +23,7 @@
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2",
-    "simple-crypto-js": "^2.2.0"
+    "semantic-ui-react": "^0.88.2"
   },
   "keywords": [
     "gatsby"
@@ -31,11 +31,12 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop --host localhost --port 8000",
+    "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "production": "gatsby build && gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
