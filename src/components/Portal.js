@@ -15,6 +15,8 @@ import arraySort from "array-sort"
 import moment from "moment"
 import copy from "copy-text-to-clipboard"
 var CryptoJS = require("crypto-js")
+var isVideo = require("is-video")
+
 import Navigation from "./navigation"
 import Login from "./login"
 
@@ -136,12 +138,10 @@ const Portal = () => {
             >
               {item.type === 2 ? (
                 <Icon name="folder open" />
-              ) : item.name.slice(-3) === "zip" ? (
-                <Icon name="zip" />
-              ) : item.name.slice(-3) === "rar" ? (
-                <Icon name="zip" />
-              ) : (
+              ) : isVideo(item.name) ? (
                 <Icon name="video camera" />
+              ) : (
+                <Icon name="zip" />
               )}
               {item.name}
             </Item.Header>
@@ -174,7 +174,7 @@ const Portal = () => {
                 Copy FTP Link
                 <Icon color="black" name="chain" />
               </Button>
-              {item.type !== 2 ? (
+              {isVideo(item.name) ? (
                 <Button size="mini" icon labelPosition="left" color="orange">
                   Right-Click to Open in VLC
                   <Icon name="download" />
