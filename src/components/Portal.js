@@ -6,15 +6,9 @@ import {
   Icon,
   Dimmer,
   Loader,
-  Message,
-  Grid,
   TransitionablePortal,
   Segment,
   Header,
-  Form,
-  Divider,
-  Checkbox,
-  Responsive,
 } from "semantic-ui-react"
 import axios from "axios"
 import arraySort from "array-sort"
@@ -77,6 +71,7 @@ const Portal = () => {
         setData(items)
         // ends the load screen animation (if it's visible)
         setLoading(false)
+        setError(false)
         // login if not logged in
         if (isLoggedIn === false) setIsLoggedIn(true)
       })
@@ -120,9 +115,7 @@ const Portal = () => {
       const linkPath = `ftp://${username}:${password}@ftp.national-anime.com${encodeURI(
         pathName
       )}/${encodeURIComponent(item.name)}`
-      console.log("copyPath:", copyPath)
-      console.log("linkPath:", linkPath)
-      console.log("pathName:", pathName)
+
       return (
         <Item key={index} name={item.name}>
           <Item.Content>
@@ -241,6 +234,11 @@ const Portal = () => {
     })
     setIsLoggedIn(false)
     setPathName("")
+    setHost("")
+    setUsername("")
+    setPassword("")
+    setPin("")
+    setSecure(false)
   }
 
   // dev pin login
@@ -337,7 +335,13 @@ const Portal = () => {
   } else {
     // Login
     return (
-      <Segment placeholder>
+      <Segment
+        compact
+        raised
+        floated={"right"}
+        placeholder
+        style={{ minHeight: "13rem" }}
+      >
         <Login
           error={error}
           host={host}
@@ -353,10 +357,6 @@ const Portal = () => {
           setPin={setPin}
           pinLogin={pinLogin}
         />
-
-        <Responsive as={Divider} vertical minWidth={768}>
-          Or
-        </Responsive>
       </Segment>
     )
   }
