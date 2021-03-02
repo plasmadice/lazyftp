@@ -6,8 +6,6 @@ import {
   Icon,
   Dimmer,
   Loader,
-  Dropdown,
-  Menu,
   Message,
   Grid,
   TransitionablePortal,
@@ -23,6 +21,7 @@ import arraySort from "array-sort"
 import moment from "moment"
 import copy from "copy-text-to-clipboard"
 var CryptoJS = require("crypto-js")
+import Navigation from "./navigation"
 
 const Portal = () => {
   const [data, setData] = useState([])
@@ -242,20 +241,6 @@ const Portal = () => {
     setPathName("")
   }
 
-  // sort menu (changes to sort state triggers buildItems())
-  const sortNameAscending = () => {
-    setSort("A-Z (Default)")
-  }
-  const sortNameDescending = () => {
-    setSort("Z-A")
-  }
-  const sortDateAscending = () => {
-    setSort("Oldest")
-  }
-  const sortDateDescending = () => {
-    setSort("Newest")
-  }
-
   // dev pin login
   const pinLogin = () => {
     if (pin === process.env.GATSBY_PIN) {
@@ -307,9 +292,7 @@ const Portal = () => {
             inverted
             loading
           />
-        ) : (
-          <Icon fitted circular size="large" name="circle notched" />
-        )}
+        ) : null}
         {`   Viewing ${files.length} items in ${
           pathName === "" ? "/" : pathName
         }`}
@@ -328,52 +311,14 @@ const Portal = () => {
             <Header>Copied to clipboard!</Header>
           </Segment>
         </TransitionablePortal>
-        <Grid
-          stackable
-          columns={2}
-          textAlign="center"
-          style={{
-            maxHeight: "15vh",
-            pointerEvents: "none",
-            margin: "10px auto 50px auto",
-          }}
-        >
-          <Grid.Row>
-            <Grid.Column>
-              <Button.Group floated="left" style={{ pointerEvents: "auto" }}>
-                <Button color="grey" onClick={() => goHome()}>
-                  Home
-                </Button>
-                <Button color="grey" onClick={() => goBack()}>
-                  Back
-                </Button>
-                <Button color="black" onClick={() => disconnect()}>
-                  Disconnect
-                </Button>
-              </Button.Group>
-            </Grid.Column>
-            <Grid.Column>
-              <Menu floated="right" compact style={{ pointerEvents: "auto" }}>
-                <Dropdown item text={`Sort By: ${sort}`}>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => sortNameAscending()}>
-                      A-Z (Default)
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => sortNameDescending()}>
-                      Z-A
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => sortDateAscending()}>
-                      Oldest
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => sortDateDescending()}>
-                      Newest
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+
+        <Navigation
+          sort={sort}
+          setSort={setSort}
+          goHome={goHome}
+          goBack={goBack}
+          disconnect={disconnect}
+        />
 
         <Item.Group divided style={{ marginTop: "10px" }}>
           {files}
@@ -382,7 +327,6 @@ const Portal = () => {
       </Container>
     )
   } else if (loading) {
-    // if loading is true (doesn't always work) TODO: fix
     return (
       <Dimmer active size={"mini"} inverted>
         <Loader content="Loading" />
