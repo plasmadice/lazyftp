@@ -371,7 +371,10 @@ const Portal = () => {
           loading={loading}
         />
 
-        <Item.Group divided style={{ marginTop: "10px" }}>
+        <Item.Group
+          divided
+          style={{ marginTop: "2rem", height: "75vh", overflowY: "auto" }}
+        >
           {files}
         </Item.Group>
         <p>{pathName}</p>
