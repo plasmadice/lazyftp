@@ -63,7 +63,7 @@ const Login = ({
             />
             <Form.Field
               control={Checkbox}
-              label="Use FTPES/TLS encryption"
+              label="Secure connection with TLS"
               onChange={() => setSecure(!secure)}
               checked={secure}
               style={{ textAlign: "center" }}

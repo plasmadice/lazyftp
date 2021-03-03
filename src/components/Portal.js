@@ -12,13 +12,13 @@ import {
 } from "semantic-ui-react"
 import axios from "axios"
 import arraySort from "array-sort"
-import moment from "moment"
 import copy from "copy-text-to-clipboard"
 var CryptoJS = require("crypto-js")
 var isVideo = require("is-video")
 
 import Navigation from "./navigation"
 import Login from "./login"
+import date from "date-and-time"
 
 const Portal = () => {
   const [data, setData] = useState([])
@@ -34,6 +34,16 @@ const Portal = () => {
   const [copyPortal, setCopyPortal] = useState(false)
   const [pin, setPin] = useState("")
   const [error, setError] = useState(false)
+
+  // MMM DD YYYY - "Dec 29 2016"
+  const pattern1 = date.compile("MMM DD YYYY")
+
+  // MMM DD HH:mm - "Jan 07 22:24"
+  const pattern2 = date.compile("MMM DD HH:mm")
+  const pattern3 = date.compile("MMM DD YYYY at HH:mm")
+  const today = new Date()
+  const currentMonth = today.getMonth()
+  const currentYear = today.getFullYear()
 
   // ftp url pulled in from .env
   const url = process.env.GATSBY_FTPURL
@@ -61,11 +71,30 @@ const Portal = () => {
     })
       .then((res) => {
         const items = res.data.map((item) => {
+          let time = date.parse(item.rawModifiedAt, pattern1)
+          if (isNaN(time)) {
+            time = date.parse(item.rawModifiedAt, pattern2)
+            const monthDifference = currentMonth - time.getMonth()
+
+            if (time.getFullYear() === 1970) {
+              // likely modified in last 6 months (180 days)
+              if (monthDifference <= 6 && monthDifference >= 0) {
+                time.setFullYear(currentYear)
+              } else if (currentMonth + 6 < time.getMonth()) {
+                time.setFullYear(currentYear - 1)
+              }
+            }
+          }
+
+          // MMM DD YYYY - "Dec 29 2016"
+          // MMM DD HH:mm - "Jan 07 22:24"
+
           return {
             name: item.name,
             type: item.type,
-            date: moment(item.rawModifiedAt).format("MMM DD h:mm A"),
+            date: item.rawModifiedAt,
             size: item.size,
+            lastModified: time.getTime(),
           }
         })
 
@@ -100,21 +129,24 @@ const Portal = () => {
     }
 
     // sorts items based on sort variable
+
+    // MMM DD h:mm A (momentjs format)
+    console.log(data)
     if (sort === "A-Z (Default)") {
       items = arraySort(data, "name")
     } else if (sort === "Z-A") {
       items = arraySort(data, "name", { reverse: true })
     } else if (sort === "Oldest") {
-      items = arraySort(data, "date")
+      items = arraySort(data, "lastModified")
     } else if (sort === "Newest") {
-      items = arraySort(data, "date", { reverse: true })
+      items = arraySort(data, "lastModified", { reverse: true })
     }
 
     // Makes an <Item /> for every item
     const preparedItems = items.map((item, index) => {
-      const copyPath = `ftp://${username}:${password}@ftp.national-anime.com${pathName}/${item.name}`
+      const copyPath = `ftp://${username}:${password}@${host}${pathName}/${item.name}`
 
-      const linkPath = `ftp://${username}:${password}@ftp.national-anime.com${encodeURI(
+      const linkPath = `ftp://${username}:${password}@${host}${encodeURI(
         pathName
       )}/${encodeURIComponent(item.name)}`
 
@@ -158,7 +190,7 @@ const Portal = () => {
                 }}
               >
                 <Icon color="black" name="copy" />
-                Copy Path
+                Copy FTP Path
               </Button>
               <Button
                 size="mini"
@@ -171,7 +203,7 @@ const Portal = () => {
                   copy(linkPath)
                 }}
               >
-                Copy FTP Link
+                Copy FTP URL
                 <Icon color="black" name="chain" />
               </Button>
               {isVideo(item.name) ? (
@@ -363,6 +395,3 @@ const Portal = () => {
 }
 
 export default Portal
-
-// example formatted string:
-// ftp://ftp.national-anime.com/Anime/Series/Ongoing/Itai%20no%20wa%20Iya%20nano%20de%20Bougyoryoku%20ni%20Kyokufuri%20Shitai%20to%20Omoimasu/%5BHorribleSubs%5D%20Itai%20no%20wa%20Iya%20nano%20de%20Bougyoryoku%20ni%20Kyokufuri%20Shitai%20to%20Omoimasu%20-%2002%20%5B720p%5D.mkv
