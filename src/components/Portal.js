@@ -35,12 +35,9 @@ const Portal = () => {
   const [pin, setPin] = useState("")
   const [error, setError] = useState(false)
 
-  // MMM DD YYYY - "Dec 29 2016"
-  const pattern1 = date.compile("MMM DD YYYY")
-
-  // MMM DD HH:mm - "Jan 07 22:24"
-  const pattern2 = date.compile("MMM DD HH:mm")
-  const pattern3 = date.compile("MMM DD YYYY at HH:mm")
+  // Area related to date-and-time module
+  const pattern1 = date.compile("MMM DD YYYY") // MMM DD YYYY - "Dec 29 2016"
+  const pattern2 = date.compile("MMM DD HH:mm") // MMM DD HH:mm - "Jan 07 22:24"
   const today = new Date()
   const currentMonth = today.getMonth()
   const currentYear = today.getFullYear()
@@ -59,6 +56,7 @@ const Portal = () => {
       ftpSecure: secure,
     }
 
+    // encrypt data and send as POST
     let cipherText = CryptoJS.AES.encrypt(
       JSON.stringify(data),
       process.env.GATSBY_PASSWORD
@@ -77,7 +75,7 @@ const Portal = () => {
             const monthDifference = currentMonth - time.getMonth()
 
             if (time.getFullYear() === 1970) {
-              // likely modified in last 6 months (180 days)
+              // issue caused by timestamps without a year / likely modified in last 6 months (180 days)
               if (monthDifference <= 6 && monthDifference >= 0) {
                 time.setFullYear(currentYear)
               } else if (currentMonth + 6 < time.getMonth()) {
@@ -85,9 +83,6 @@ const Portal = () => {
               }
             }
           }
-
-          // MMM DD YYYY - "Dec 29 2016"
-          // MMM DD HH:mm - "Jan 07 22:24"
 
           return {
             name: item.name,
@@ -131,7 +126,7 @@ const Portal = () => {
     // sorts items based on sort variable
 
     // MMM DD h:mm A (momentjs format)
-    console.log(data)
+    console.log(data.length)
     if (sort === "A-Z (Default)") {
       items = arraySort(data, "name")
     } else if (sort === "Z-A") {
@@ -151,7 +146,14 @@ const Portal = () => {
       )}/${encodeURIComponent(item.name)}`
 
       return (
-        <Item key={index} name={item.name}>
+        <Item
+          key={index}
+          name={item.name}
+          style={{
+            contentVisibility: "auto",
+            containIntrinsicSize: "1px 1000px",
+          }}
+        >
           <Item.Content>
             <Item.Header
               as={item.type === 2 ? "a" : null}
@@ -315,16 +317,6 @@ const Portal = () => {
   if (isLoggedIn && files.length) {
     return (
       <Container style={{ width: "100%", height: "100%" }}>
-        {loading ? (
-          <Icon
-            fitted
-            circular
-            size="large"
-            name="circle notched"
-            inverted
-            loading
-          />
-        ) : null}
         {`   Viewing ${files.length} items in ${
           pathName === "" ? "/" : pathName
         }`}
@@ -343,6 +335,32 @@ const Portal = () => {
             <Header>Copied to clipboard!</Header>
           </Segment>
         </TransitionablePortal>
+        <TransitionablePortal
+          open={loading}
+          transition={{ animation: "fade", duration: 600 }}
+        >
+          <Segment
+            compact
+            circular
+            secondary
+            style={{
+              left: "50%",
+              top: "50%",
+              position: "absolute",
+              zIndex: 1000,
+            }}
+          >
+            <Icon
+              fitted
+              bordered
+              circular
+              inverted
+              loading
+              size="large"
+              name="cloud"
+            />
+          </Segment>
+        </TransitionablePortal>
 
         <Navigation
           sort={sort}
@@ -350,6 +368,7 @@ const Portal = () => {
           goHome={goHome}
           goBack={goBack}
           disconnect={disconnect}
+          loading={loading}
         />
 
         <Item.Group divided style={{ marginTop: "10px" }}>

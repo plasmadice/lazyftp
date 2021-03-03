@@ -1,7 +1,7 @@
 import React from "react"
 import { Grid, Dropdown, Button, Menu } from "semantic-ui-react"
 
-const Navigation = ({ sort, setSort, goHome, goBack, disconnect }) => {
+const Navigation = ({ sort, setSort, goHome, goBack, disconnect, loading }) => {
   // sort menu (changes to sort state triggers buildItems())
   const sortNameAscending = () => {
     setSort("A-Z (Default)")
