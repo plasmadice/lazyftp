@@ -39,7 +39,6 @@ const Portal = () => {
   const pattern1 = date.compile("MMM DD YYYY") // MMM DD YYYY - "Dec 29 2016"
   const pattern2 = date.compile("MMM DD HH:mm") // MMM DD HH:mm - "Jan 07 22:24"
   const today = new Date()
-  const currentMonth = today.getMonth()
   const currentYear = today.getFullYear()
 
   // ftp url pulled in from .env
@@ -72,13 +71,14 @@ const Portal = () => {
           let time = date.parse(item.rawModifiedAt, pattern1)
           if (isNaN(time)) {
             time = date.parse(item.rawModifiedAt, pattern2)
-            const monthDifference = currentMonth - time.getMonth()
 
+            // issue caused by timestamps without a year / likely modified in last 6 months (180 days)
             if (time.getFullYear() === 1970) {
-              // issue caused by timestamps without a year / likely modified in last 6 months (180 days)
-              if (monthDifference <= 6 && monthDifference >= 0) {
-                time.setFullYear(currentYear)
-              } else if (currentMonth + 6 < time.getMonth()) {
+              // If less than 180 days has passed since modified
+              // sets year and tests if valid
+              time.setFullYear(currentYear)
+              if (date.subtract(today, time).toDays() > parseFloat(-180)) {
+              } else {
                 time.setFullYear(currentYear - 1)
               }
             }
@@ -126,7 +126,6 @@ const Portal = () => {
     // sorts items based on sort variable
 
     // MMM DD h:mm A (momentjs format)
-    console.log(data.length)
     if (sort === "A-Z (Default)") {
       items = arraySort(data, "name")
     } else if (sort === "Z-A") {
@@ -278,6 +277,7 @@ const Portal = () => {
   // dev pin login
   const pinLogin = () => {
     if (pin === process.env.GATSBY_PIN) {
+      setSort("Newest")
       setHost(process.env.GATSBY_PINHOST)
       setUsername(process.env.GATSBY_PINUSER)
       setPassword(process.env.GATSBY_PINPASS)
