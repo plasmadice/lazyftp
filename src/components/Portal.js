@@ -278,13 +278,13 @@ const Portal = () => {
   // dev pin login
   const pinLogin = () => {
     if (pin === process.env.GATSBY_PIN) {
-      setSort("Newest")
       setHost(process.env.GATSBY_PINHOST)
       setUsername(process.env.GATSBY_PINUSER)
       setPassword(process.env.GATSBY_PINPASS)
       setSecure(process.env.GATSBY_PINSECURE === "true")
       setLoading(true)
     } else if (pin === process.env.GATSBY_PIN2) {
+      setSort("Newest")
       setHost(process.env.GATSBY_PINHOST)
       setUsername(process.env.GATSBY_PINUSER)
       setPassword(process.env.GATSBY_PINPASS)
