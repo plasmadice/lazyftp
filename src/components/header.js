@@ -15,9 +15,8 @@ const Header = ({ siteTitle }) => (
     <div
       style={{
         // margin: `0 auto`,
-        maxWidth: 960,
         padding: `1.45rem`,
-        flexBasis: "65%",
+        flexBasis: "70%",
       }}
     >
       <h1 style={{ margin: 0 }}>
@@ -32,7 +31,7 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
     </div>
-    <div style={{ margin: "auto", flexBasis: "auto" }}>
+    <div style={{ margin: "1rem 0", flexBasis: "auto" }}>
       <Messages />
     </div>
   </header>

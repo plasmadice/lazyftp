@@ -272,6 +272,7 @@ const Portal = () => {
     setPassword("")
     setPin("")
     setSecure(false)
+    setSort("A-Z (Default)")
   }
 
   // dev pin login

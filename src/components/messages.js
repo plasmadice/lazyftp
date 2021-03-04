@@ -3,7 +3,7 @@ import { Message } from "semantic-ui-react"
 
 const Messages = () => {
   return (
-    <Message info compact floating attached="bottom">
+    <Message info compact floating>
       <Message.Header>New Site Features</Message.Header>
       <Message.List>
         <Message.Item>
