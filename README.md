@@ -1,12 +1,12 @@
 # Usage
 
 `npm i` to install all needed dependancies
-`npm start` to start the server
+`npm start` to start the frontend
 
 # Encryption Details
 
 Encrypted data is sent from the frontend to this server where it is decrypted using a key.
-Official URL (As of 3/19 https is not fully provisioned): https://lazyanime.com/
+Official URL: https://lazyanime.com/
 Netlify URL: https://elastic-panini-7bfc59.netlify.com/
 
 ## Issues:
@@ -22,10 +22,9 @@ Netlify URL: https://elastic-panini-7bfc59.netlify.com/
 ## Tech:
 
 -Frontend - Gatsby hosted on Netlify - https://github.com/plasmadice/lazy-ftp
--Backend - Node.js hosted on Heroku (Free dyno tier so after extended periods of time the server goes down. Attempts to connect to it will spin it back up. Takes ~10 seconds) - https://github.com/plasmadice/lazyanime-backend
+-Backend - Node.js hosted on Heroku - https://github.com/plasmadice/lazyanime-backend
 
-## Plans:
+## Future Feature list
 
--Launch VLC on click - Currently pretty easy to do using node.js, but on the frontend it's a different matter. This stackoverflow page provides some info on how that works if anyone is interested.
--VLC playlist - after VLC implementation, queuing up anime would be somewhat trivial
--Implement pagination using semantic-ui-react pagination component
+-Download media through browser
+-Optionally convert videos to mp4 to view in browser
