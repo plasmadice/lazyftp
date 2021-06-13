@@ -13,15 +13,16 @@ import {
 import axios from "axios"
 import arraySort from "array-sort"
 import copy from "copy-text-to-clipboard"
-var CryptoJS = require("crypto-js")
-var isVideo = require("is-video")
-
 import Navigation from "./navigation"
 import Login from "./login"
 import date from "date-and-time"
 
+var CryptoJS = require("crypto-js")
+var isVideo = require("is-video")
+
 const Portal = () => {
   const [data, setData] = useState([])
+  const [backupFiles, setBackupFiles] = useState([])
   const [files, setFiles] = useState([])
   const [host, setHost] = useState("")
   const [username, setUsername] = useState("")
@@ -115,7 +116,7 @@ const Portal = () => {
 
     // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
     function formatBytes(a, b) {
-      if (0 == a) return "0 Bytes"
+      if (0 === a) return "0 Bytes"
       var c = 1024,
         d = b || 2,
         e = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
@@ -187,32 +188,36 @@ const Portal = () => {
                   // opens transition portal to show user what happened
                   setCopyPortal(true)
                   // copy to clipboard on click
-                  copy(copyPath)
+                  copy(linkPath)
                 }}
               >
                 <Icon color="black" name="copy" />
                 Copy FTP Path
               </Button>
-              <Button
-                size="mini"
-                icon
-                labelPosition="left"
-                onClick={() => {
-                  // opens transition portal to show user what happened
-                  setCopyPortal(true)
-                  // copy to clipboard on click
-                  copy(linkPath)
-                }}
-              >
-                Copy FTP URL
-                <Icon color="black" name="chain" />
-              </Button>
+              {item.type !== 2 ? ( // show download button if item != folder
+                <Button
+                  href={copyPath}
+                  download
+                  size="mini"
+                  icon
+                  labelPosition="left"
+                  // onClick={() => {
+                  //   // console.log(`Attempting to download:\n${copyPath}`)
+                  //   // // opens transition portal to show user what happened
+                  //   // setCopyPortal(true)
+                  //   // // copy to clipboard on click
+                  //   // copy(linkPath)
+                  // }}
+                >
+                  Download
+                  <Icon color="black" name="chain" />
+                </Button>
+              ) : null}
               {isVideo(item.name) ? (
                 <Button size="mini" icon labelPosition="left" color="orange">
                   Right-Click to Open in VLC
                   <Icon name="download" />
                   <video
-                    src={linkPath}
                     style={{
                       position: "absolute",
                       objectFit: "cover",
@@ -221,7 +226,10 @@ const Portal = () => {
                       left: "0px",
                       top: "0px",
                     }}
-                  />
+                  >
+                    <source src={linkPath} type='type="video/mp4"' />
+                    <track kind="captions" label="Click here to open in VLC" />
+                  </video>
                 </Button>
               ) : null}
             </Item.Extra>
@@ -234,7 +242,8 @@ const Portal = () => {
       )
     })
 
-    // rewrites files object
+    // rewrites files object and creates backup for search reset
+    setBackupFiles(preparedItems)
     setFiles(preparedItems)
   }
 
@@ -248,6 +257,7 @@ const Portal = () => {
     setPathName(newPath)
     setLoading(true)
   }
+
   const disconnect = () => {
     const data = {
       ftpHost: host,
@@ -296,6 +306,7 @@ const Portal = () => {
   // on pathName or loading change triggers navigate()
   useEffect(() => {
     if (loading) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       navigate()
     }
   }, [pathName, loading])
@@ -303,6 +314,7 @@ const Portal = () => {
   // on data or sort change triggers buildItems()
   useEffect(() => {
     if (data.length) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       buildItems()
     }
   }, [data, sort])
@@ -369,13 +381,12 @@ const Portal = () => {
           goHome={goHome}
           goBack={goBack}
           disconnect={disconnect}
-          loading={loading}
+          files={files}
+          setFiles={setFiles}
+          backupFiles={backupFiles}
         />
 
-        <Item.Group
-          divided
-          style={{ marginTop: "2rem", height: "75vh", overflowY: "auto" }}
-        >
+        <Item.Group divided style={{ height: "75vh", overflowY: "auto" }}>
           {files}
         </Item.Group>
         <p>{pathName}</p>

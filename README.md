@@ -3,6 +3,9 @@
 `npm i` to install all needed dependancies
 `npm start` to start the frontend
 
+Optional: Install Right-Click to Open in VLC Chrome Extension
+Optional: Enable Support for FTP URLs in Chrome (copy `chrome://flags/#enable-ftp` into URL bar in Chrome and change to `Enabled`)
+
 ### Details
 
 - Encrypted data is sent from the frontend to this server where it is decrypted using a key.
@@ -13,7 +16,6 @@
 
 ## Issues:
 
--If a file is not a video AND not a folder it will still generate an ftp link (low priority as I don't even know what happens if you try to open that link)
 -Not very descriptive on errors
 
 ### Tech:

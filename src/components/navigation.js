@@ -1,7 +1,17 @@
 import React from "react"
 import { Grid, Dropdown, Button, Menu } from "semantic-ui-react"
+import Search from "./search"
 
-const Navigation = ({ sort, setSort, goHome, goBack, disconnect, loading }) => {
+const Navigation = ({
+  sort,
+  setSort,
+  goHome,
+  goBack,
+  disconnect,
+  files,
+  setFiles,
+  backupFiles,
+}) => {
   // sort menu (changes to sort state triggers buildItems())
   const sortNameAscending = () => {
     setSort("A-Z (Default)")
@@ -24,7 +34,7 @@ const Navigation = ({ sort, setSort, goHome, goBack, disconnect, loading }) => {
       style={{
         maxHeight: "15vh",
         pointerEvents: "none",
-        margin: "10px auto 50px auto",
+        padding: "10px auto 50px auto",
       }}
     >
       <Grid.Row style={{ float: "left" }}>
@@ -42,6 +52,7 @@ const Navigation = ({ sort, setSort, goHome, goBack, disconnect, loading }) => {
           </Button.Group>
         </Grid.Column>
         <Grid.Column>
+          <Search files={files} setFiles={setFiles} backupFiles={backupFiles} />
           <Menu floated="right" compact style={{ pointerEvents: "auto" }}>
             <Dropdown item text={`Sort By: ${sort}`}>
               <Dropdown.Menu>
