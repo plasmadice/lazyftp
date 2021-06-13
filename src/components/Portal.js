@@ -197,6 +197,7 @@ const Portal = () => {
               {item.type !== 2 ? ( // show download button if item != folder
                 <Button
                   as="a"
+                  negative
                   href={linkPath}
                   download
                   size="mini"
@@ -211,7 +212,7 @@ const Portal = () => {
                   //   // copy(linkPath)
                   // }}
                 >
-                  Download
+                  Download (experimental)
                   <Icon color="black" name="chain" />
                 </Button>
               ) : null}
