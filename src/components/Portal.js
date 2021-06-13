@@ -202,14 +202,14 @@ const Portal = () => {
                   size="mini"
                   icon
                   labelPosition="left"
-                  onClick={(e) => {
-                    // e.preventDefault()
-                    // console.log(`Attempting to download:\n${copyPath}`)
-                    // // opens transition portal to show user what happened
-                    // setCopyPortal(true)
-                    // // copy to clipboard on click
-                    // copy(linkPath)
-                  }}
+                  // onClick={(e) => {
+                  //   // e.preventDefault()
+                  //   // console.log(`Attempting to download:\n${copyPath}`)
+                  //   // // opens transition portal to show user what happened
+                  //   // setCopyPortal(true)
+                  //   // // copy to clipboard on click
+                  //   // copy(linkPath)
+                  // }}
                 >
                   Download
                   <Icon color="black" name="chain" />
