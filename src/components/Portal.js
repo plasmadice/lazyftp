@@ -229,7 +229,7 @@ const Portal = () => {
                       top: "0px",
                     }}
                   >
-                    <source src={linkPath} type='type="video/mp4"' />
+                    <source src={linkPath} type="video/mp4" />
                     <track kind="captions" label="Click here to open in VLC" />
                   </video>
                 </Button>
