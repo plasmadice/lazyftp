@@ -197,7 +197,7 @@ const Portal = () => {
               {item.type !== 2 ? ( // show download button if item != folder
                 <Button
                   as="a"
-                  href={copyPath}
+                  href={linkPath}
                   download
                   size="mini"
                   icon
