@@ -195,24 +195,84 @@ const Portal = () => {
                 Copy FTP Path
               </Button>
               {item.type !== 2 ? ( // show download button if item != folder
-                <Button
-                  as="a"
-                  negative
-                  href={linkPath}
-                  target="_blank"
-                  download
-                  size="mini"
-                  icon
-                  labelPosition="left"
-                  // onClick={(e) => {
-                  //   // e.preventDefault()
-                  //   console.log(`Attempting to download:\n${copyPath}`)
-                  //   window.open(linkPath, "_blank")
-                  // }}
-                >
-                  Download (experimental)
-                  <Icon color="black" name="download" />
-                </Button>
+                <>
+                  <Button
+                    as="a"
+                    negative
+                    href={linkPath}
+                    target="_blank"
+                    download
+                    size="mini"
+                    icon
+                    labelPosition="left"
+                    // onClick={(e) => {
+                    //   // e.preventDefault()
+                    //   console.log(`Attempting to download:\n${copyPath}`)
+                    //   window.open(linkPath, "_blank")
+                    // }}
+                  >
+                    Download (experimental)
+                    <Icon color="black" name="download" />
+                  </Button>
+                  <Button
+                    color="teal"
+                    target="_blank"
+                    download
+                    size="mini"
+                    icon
+                    labelPosition="left"
+                    onClick={(e) => {
+                      function download(data, filename, type) {
+                        var file = new Blob([data], { type: type })
+                        if (window.navigator.msSaveOrOpenBlob)
+                          // IE10+
+                          window.navigator.msSaveOrOpenBlob(file, filename)
+                        else {
+                          // Others
+                          var a = document.createElement("a"),
+                            url = URL.createObjectURL(file)
+                          a.href = url
+                          a.download = filename
+                          document.body.appendChild(a)
+                          a.click()
+                          setTimeout(function () {
+                            document.body.removeChild(a)
+                            window.URL.revokeObjectURL(url)
+                          }, 0)
+                        }
+                      }
+
+                      if (window) {
+                        window.open(linkPath, "_blank")
+                      }
+
+                      // }
+
+                      // if (isFirefox) {
+                      //   chrome.tabs.create({
+                      //     active: false,
+                      //     url: linkPath,
+                      //     discarded: true
+                      //   });
+                      // }
+                      // else {
+                      //   chrome.tabs.create({
+                      //     active: false,
+                      //     url: linkPath
+                      //   }, tab => chrome.tabs.executeScript(tab.id, {
+                      //     runAt: 'document_start',
+                      //     code: 'window.stop()'
+                      //   }, () => chrome.tabs.executeScript(tab.id, {
+                      //     runAt: 'document_start',
+                      //     file: 'data/lazy.js'
+                      //   })))
+                      // }
+                    }}
+                  >
+                    Download (2)
+                    <Icon color="black" name="download" />
+                  </Button>
+                </>
               ) : null}
               {isVideo(item.name) ? (
                 <Button size="mini" icon labelPosition="left" color="orange">
