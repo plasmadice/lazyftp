@@ -333,7 +333,7 @@ const Portal = () => {
   // if acceptable login info was found and files are available to display
   if (isLoggedIn && files.length) {
     return (
-      <Container style={{ width: "100%", height: "100%" }}>
+      <Container style={{ width: "100%", height: "100%", marginTop: "1rem" }}>
         {`   Viewing ${files.length} items in ${
           pathName === "" ? "/" : pathName
         }`}
@@ -410,7 +410,7 @@ const Portal = () => {
         raised
         floated={"right"}
         placeholder
-        style={{ minHeight: "13rem" }}
+        style={{ minHeight: "13rem", margin: "4rem 4rem 0 0" }}
       >
         <Login
           error={error}

@@ -7,8 +7,10 @@ const Header = ({ siteTitle }) => (
   <header
     style={{
       background: `#00adb5`,
-      marginBottom: `1.45rem`,
+      // marginBottom: `1.45rem`,
+      height: "20vh",
       display: "flex",
+      width: "100%",
       justifyContent: "space-around",
     }}
   >
@@ -16,7 +18,7 @@ const Header = ({ siteTitle }) => (
       style={{
         // margin: `0 auto`,
         padding: `1.45rem`,
-        flexBasis: "70%",
+        flexBasis: "50%",
       }}
     >
       <h1 style={{ margin: 0 }}>
@@ -31,7 +33,15 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
     </div>
-    <div style={{ margin: "1rem 0", flexBasis: "auto" }}>
+    <div
+      style={{
+        margin: "1rem 0",
+        flexBasis: "50%",
+        display: "flex",
+        justifyContent: "flex-end",
+        flex: "0 1 auto",
+      }}
+    >
       <Messages />
     </div>
   </header>
