@@ -196,22 +196,19 @@ const Portal = () => {
               </Button>
               {item.type !== 2 ? ( // show download button if item != folder
                 <Button
-                  as="a"
+                  // as="a"
                   negative
-                  href={linkPath}
+                  // href={linkPath}
                   target="_blank"
                   download
                   size="mini"
                   icon
                   labelPosition="left"
-                  // onClick={(e) => {
-                  //   // e.preventDefault()
-                  //   // console.log(`Attempting to download:\n${copyPath}`)
-                  //   // // opens transition portal to show user what happened
-                  //   // setCopyPortal(true)
-                  //   // // copy to clipboard on click
-                  //   // copy(linkPath)
-                  // }}
+                  onClick={(e) => {
+                    // e.preventDefault()
+                    console.log(`Attempting to download:\n${copyPath}`)
+                    window.open(linkPath, "_blank")
+                  }}
                 >
                   Download (experimental)
                   <Icon color="black" name="download" />
