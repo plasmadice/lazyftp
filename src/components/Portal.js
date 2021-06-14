@@ -211,7 +211,7 @@ const Portal = () => {
                     Download (experimental)
                     <Icon color="black" name="download" />
                   </Button>
-                  <Button
+                  {/* <Button
                     color="teal"
                     target="_blank"
                     size="mini"
@@ -245,7 +245,7 @@ const Portal = () => {
                   >
                     Download (2)
                     <Icon color="black" name="download" />
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
               {isVideo(item.name) ? (
