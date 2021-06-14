@@ -199,17 +199,14 @@ const Portal = () => {
                   <Button
                     as="a"
                     negative
+                    rel="noopener"
+                    rel="noreferrer"
                     href={linkPath}
                     target="_blank"
                     download
                     size="mini"
                     icon
                     labelPosition="left"
-                    // onClick={(e) => {
-                    //   // e.preventDefault()
-                    //   console.log(`Attempting to download:\n${copyPath}`)
-                    //   window.open(linkPath, "_blank")
-                    // }}
                   >
                     Download (experimental)
                     <Icon color="black" name="download" />
