@@ -39,21 +39,13 @@ const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
   return (
     <div style={{ float: "left" }}>
       <Input
-        action={
-          // <Button
-          //   primary={!value.length}
-          //   negative={value.length}
-          //   content="Clear Search"
-          //   onClick={() => setValue("")}
-          //   style={{ pointerEvents: "auto" }}
-          // />
-          {
-            // labelPosition: "right",
-            color: value.length ? "negative" : "primary",
-            content: "Clear",
-            onClick: () => setValue(""),
-          }
-        }
+        action={{
+          labelPosition: value.length ? "right" : null,
+          icon: value.length ? "remove" : null,
+          color: value.length ? "negative" : "primary",
+          content: value.length ? "Clear" : "Search",
+          onClick: () => setValue(""),
+        }}
         actionPosition="right"
         icon="search"
         iconPosition="left"
