@@ -27,5 +27,5 @@ Optional: Enable Support for FTP URLs in Chrome (copy `chrome://flags/#enable-ft
 
 - Download media through browser
 - Optionally convert videos to mp4 to view in browser
-- Credentials-store usint postgresql
+- Credentials-store using postgresql
 - Needs more error reporting

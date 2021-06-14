@@ -14,6 +14,15 @@ const ModalButton = () => {
     >
       <Header icon="archive" content="Features & Fixes" />
       <Modal.Content>
+        <h2>
+          Report issues on{" "}
+          <a
+            href="https://github.com/plasmadice/lazy-ftp/issues"
+            target="_blank"
+          >
+            Github
+          </a>
+        </h2>
         <p>-Added search feature</p>
         <p>
           -Enable Support for FTP downloads in Chrome: (copy

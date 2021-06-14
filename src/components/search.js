@@ -38,12 +38,22 @@ const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
 
   return (
     <div style={{ float: "left" }}>
-      <Button
-        content="Clear"
-        onClick={() => setValue("")}
-        style={{ pointerEvents: "auto" }}
-      />
       <Input
+        action={
+          // <Button
+          //   primary={!value.length}
+          //   negative={value.length}
+          //   content="Clear Search"
+          //   onClick={() => setValue("")}
+          //   style={{ pointerEvents: "auto" }}
+          // />
+          {
+            // labelPosition: "right",
+            color: value.length ? "negative" : "primary",
+            content: "Clear",
+          }
+        }
+        actionPosition="right"
         icon="search"
         iconPosition="left"
         placeholder="Search/Filter..."
