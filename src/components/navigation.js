@@ -39,7 +39,7 @@ const Navigation = ({
       }}
     >
       <Grid.Row style={{ float: "left" }}>
-        <Grid.Column>
+        <Grid.Column width={6}>
           <Button.Group floated="left" style={{ pointerEvents: "auto" }}>
             <Button color="grey" onClick={() => goHome()}>
               Home
@@ -52,12 +52,13 @@ const Navigation = ({
             </Button>
           </Button.Group>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column width={10}>
           <Search
             files={files}
             setFiles={setFiles}
             backupFiles={backupFiles}
             loading={loading}
+            sort={sort}
           />
           <Menu floated="right" compact style={{ pointerEvents: "auto" }}>
             <Dropdown item text={`Sort By: ${sort}`}>

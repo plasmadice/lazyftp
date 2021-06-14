@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Input } from "semantic-ui-react"
+import { Input, Button } from "semantic-ui-react"
 
-const Search = ({ files, setFiles, backupFiles, loading }) => {
+const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
   // console.log(setFiles().toString())
   const sortFiles = (data) => {
     // data.forEach((item) => console.log(item.props.name))
@@ -15,12 +15,19 @@ const Search = ({ files, setFiles, backupFiles, loading }) => {
   const [value, setValue] = useState("")
 
   useEffect(() => {
-    if (files.length && value.length >= 1) {
+    if (files.length && value.length > 0) {
       sortFiles(files) // filters search results
     } else {
       setFiles(backupFiles) // resets items array
     }
   }, [value])
+
+  useEffect(() => {
+    if (value.length > 0 && files.length) {
+      console.log("triggered")
+      sortFiles(files) // filters search results
+    }
+  }, [backupFiles])
 
   useEffect(() => {
     // if page changes for any reason
@@ -30,14 +37,21 @@ const Search = ({ files, setFiles, backupFiles, loading }) => {
   }, [loading])
 
   return (
-    <Input
-      icon="search"
-      iconPosition="left"
-      placeholder="Search/Filter..."
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      style={{ pointerEvents: "auto" }}
-    />
+    <div style={{ float: "left" }}>
+      <Button
+        content="Clear"
+        onClick={() => setValue("")}
+        style={{ pointerEvents: "auto" }}
+      />
+      <Input
+        icon="search"
+        iconPosition="left"
+        placeholder="Search/Filter..."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        style={{ pointerEvents: "auto" }}
+      />
+    </div>
   )
 }
 

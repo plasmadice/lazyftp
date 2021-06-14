@@ -111,9 +111,6 @@ const Portal = () => {
 
   // takes data object and formats it into <Item />
   const buildItems = () => {
-    // initial items array
-    let items = []
-
     // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
     function formatBytes(a, b) {
       if (0 === a) return "0 Bytes"
@@ -126,19 +123,19 @@ const Portal = () => {
 
     // sorts items based on sort variable
 
-    // MMM DD h:mm A (momentjs format)
-    if (sort === "A-Z (Default)") {
-      items = arraySort(data, "name")
-    } else if (sort === "Z-A") {
-      items = arraySort(data, "name", { reverse: true })
-    } else if (sort === "Oldest") {
-      items = arraySort(data, "lastModified")
-    } else if (sort === "Newest") {
-      items = arraySort(data, "lastModified", { reverse: true })
-    }
+    // // MMM DD h:mm A (momentjs format)
+    // if (sort === "A-Z (Default)") {
+    //   items = arraySort(data, "name")
+    // } else if (sort === "Z-A") {
+    //   items = arraySort(data, "name", { reverse: true })
+    // } else if (sort === "Oldest") {
+    //   items = arraySort(data, "lastModified")
+    // } else if (sort === "Newest") {
+    //   items = arraySort(data, "lastModified", { reverse: true })
+    // }
 
     // Makes an <Item /> for every item
-    const preparedItems = items.map((item, index) => {
+    const preparedItems = data.map((item, index) => {
       const copyPath = `ftp://${username}:${password}@${host}${pathName}/${item.name}`
 
       const linkPath = `ftp://${username}:${password}@${host}${encodeURI(
@@ -149,6 +146,7 @@ const Portal = () => {
         <Item
           key={index}
           name={item.name}
+          date={item.date}
           style={{
             contentVisibility: "auto",
             containIntrinsicSize: "1px 1000px",
@@ -277,9 +275,22 @@ const Portal = () => {
       )
     })
 
+    let sortedItems = []
+
+    // MMM DD h:mm A (momentjs format)
+    if (sort === "A-Z (Default)") {
+      sortedItems = arraySort(preparedItems, "props.name")
+    } else if (sort === "Z-A") {
+      sortedItems = arraySort(preparedItems, "props.name", { reverse: true })
+    } else if (sort === "Oldest") {
+      sortedItems = arraySort(preparedItems, "props.date")
+    } else if (sort === "Newest") {
+      sortedItems = arraySort(preparedItems, "props.date", { reverse: true })
+    }
+
     // rewrites files object and creates backup for search reset
-    setBackupFiles(preparedItems)
-    setFiles(preparedItems)
+    setBackupFiles(sortedItems)
+    setFiles(sortedItems)
   }
 
   // buttons (changes to pathName triggers navigate())
@@ -349,6 +360,7 @@ const Portal = () => {
   // on data or sort change triggers buildItems()
   useEffect(() => {
     if (data.length) {
+      console.log("builditems")
       // eslint-disable-next-line react-hooks/exhaustive-deps
       buildItems()
     }
