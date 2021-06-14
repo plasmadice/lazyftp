@@ -362,7 +362,7 @@ const Portal = () => {
   }, [copyPortal])
 
   // if acceptable login info was found and files are available to display
-  if (isLoggedIn && files.length) {
+  if (isLoggedIn) {
     return (
       <Container style={{ width: "100%", height: "100%", marginTop: "1rem" }}>
         {`   Viewing ${files.length} items in ${
@@ -419,10 +419,15 @@ const Portal = () => {
           files={files}
           setFiles={setFiles}
           backupFiles={backupFiles}
+          loading={loading}
         />
 
         <Item.Group divided style={{ height: "75vh", overflowY: "auto" }}>
-          {files}
+          {files.length !== backupFiles && files.length ? ( // if items exist
+            files
+          ) : (
+            /* if search filtered out all items */ <h1>No search results</h1>
+          )}
         </Item.Group>
         <p>{pathName}</p>
       </Container>

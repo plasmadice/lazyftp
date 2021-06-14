@@ -11,6 +11,7 @@ const Navigation = ({
   files,
   setFiles,
   backupFiles,
+  loading,
 }) => {
   // sort menu (changes to sort state triggers buildItems())
   const sortNameAscending = () => {
@@ -52,7 +53,12 @@ const Navigation = ({
           </Button.Group>
         </Grid.Column>
         <Grid.Column>
-          <Search files={files} setFiles={setFiles} backupFiles={backupFiles} />
+          <Search
+            files={files}
+            setFiles={setFiles}
+            backupFiles={backupFiles}
+            loading={loading}
+          />
           <Menu floated="right" compact style={{ pointerEvents: "auto" }}>
             <Dropdown item text={`Sort By: ${sort}`}>
               <Dropdown.Menu>
