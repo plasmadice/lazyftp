@@ -2,13 +2,14 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 import Messages from "./messages"
+import ModalButton from "./modalbutton"
 
 const Header = ({ siteTitle }) => (
   <header
     style={{
       background: `#00adb5`,
       // marginBottom: `1.45rem`,
-      height: "20vh",
+      height: "6rem",
       display: "flex",
       width: "100%",
       justifyContent: "space-around",
@@ -37,12 +38,9 @@ const Header = ({ siteTitle }) => (
       style={{
         margin: "1rem 0",
         flexBasis: "50%",
-        display: "flex",
-        justifyContent: "flex-end",
-        flex: "0 1 auto",
       }}
     >
-      <Messages />
+      <ModalButton />
     </div>
   </header>
 )
