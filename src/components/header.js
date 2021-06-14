@@ -1,7 +1,6 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import Messages from "./messages"
 import ModalButton from "./modalbutton"
 
 const Header = ({ siteTitle }) => (
