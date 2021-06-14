@@ -34,7 +34,7 @@ const Navigation = ({
       style={{
         maxHeight: "15vh",
         pointerEvents: "none",
-        padding: "10px auto 50px auto",
+        margin: "10px auto 50px auto",
       }}
     >
       <Grid.Row style={{ float: "left" }}>

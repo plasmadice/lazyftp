@@ -199,6 +199,7 @@ const Portal = () => {
                   as="a"
                   negative
                   href={linkPath}
+                  target="_blank"
                   download
                   size="mini"
                   icon
@@ -213,13 +214,13 @@ const Portal = () => {
                   // }}
                 >
                   Download (experimental)
-                  <Icon color="black" name="chain" />
+                  <Icon color="black" name="download" />
                 </Button>
               ) : null}
               {isVideo(item.name) ? (
                 <Button size="mini" icon labelPosition="left" color="orange">
                   Right-Click to Open in VLC
-                  <Icon name="download" />
+                  <Icon name="video" />
                   <video
                     style={{
                       position: "absolute",
