@@ -15,13 +15,11 @@ const ModalButton = () => {
       <Header icon="archive" content="Features & Fixes" />
       <Modal.Content>
         <p>
-          Enable Support for FTP downloads in Chrome: (copy
+          -Enable Support for FTP downloads in Chrome: (copy
           `chrome://flags/#enable-ftp` into URL bar in Chrome and change to
           `Enabled`)
         </p>
-      </Modal.Content>
-      <Modal.Content>
-        Right-Click to Open in VLC using this{" "}
+        -Right-Click to Open in VLC using this{" "}
         <a
           target="_blank"
           rel="noreferrer"
@@ -39,8 +37,9 @@ const ModalButton = () => {
         >
           FAQ
         </a>
+        <br />
+        -Download individual items (experimental)
       </Modal.Content>
-      <Modal.Content>Download individual items (experimental)</Modal.Content>
       <Modal.Actions>
         <Button color="green" onClick={() => setOpen(false)}>
           <Icon name="checkmark" /> Close
