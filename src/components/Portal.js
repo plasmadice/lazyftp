@@ -217,56 +217,33 @@ const Portal = () => {
                   <Button
                     color="teal"
                     target="_blank"
-                    download
                     size="mini"
                     icon
                     labelPosition="left"
-                    onClick={(e) => {
-                      function download(data, filename, type) {
-                        var file = new Blob([data], { type: type })
-                        if (window.navigator.msSaveOrOpenBlob)
-                          // IE10+
-                          window.navigator.msSaveOrOpenBlob(file, filename)
-                        else {
-                          // Others
-                          var a = document.createElement("a"),
-                            url = URL.createObjectURL(file)
-                          a.href = url
-                          a.download = filename
-                          document.body.appendChild(a)
-                          a.click()
-                          setTimeout(function () {
-                            document.body.removeChild(a)
-                            window.URL.revokeObjectURL(url)
-                          }, 0)
-                        }
-                      }
-
+                    onClick={() => {
+                      // opens a new window to attempt to download the item
                       if (window) {
-                        window.open(linkPath, "_blank")
+                        let newWindow = window.open(linkPath, "_blank")
+
+                        // Generates countdown that closes window
+                        newWindow.count = 3
+
+                        const message = newWindow.document.createElement("h1")
+                        message.innerHTML = `This window should have auto-closed... closing in ${newWindow.count}`
+
+                        newWindow.document.body.appendChild(message)
+
+                        const updateClock = () => {
+                          if (newWindow.count > 0) {
+                            newWindow.count--
+                            message.innerHTML = `This window should have auto closed... closing in ${newWindow.count}`
+                          } else {
+                            newWindow.close()
+                          }
+                        }
+
+                        newWindow.setInterval(() => updateClock(), 1000)
                       }
-
-                      // }
-
-                      // if (isFirefox) {
-                      //   chrome.tabs.create({
-                      //     active: false,
-                      //     url: linkPath,
-                      //     discarded: true
-                      //   });
-                      // }
-                      // else {
-                      //   chrome.tabs.create({
-                      //     active: false,
-                      //     url: linkPath
-                      //   }, tab => chrome.tabs.executeScript(tab.id, {
-                      //     runAt: 'document_start',
-                      //     code: 'window.stop()'
-                      //   }, () => chrome.tabs.executeScript(tab.id, {
-                      //     runAt: 'document_start',
-                      //     file: 'data/lazy.js'
-                      //   })))
-                      // }
                     }}
                   >
                     Download (2)
