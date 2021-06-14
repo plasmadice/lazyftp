@@ -51,6 +51,7 @@ const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
             // labelPosition: "right",
             color: value.length ? "negative" : "primary",
             content: "Clear",
+            onClick: () => setValue(""),
           }
         }
         actionPosition="right"
