@@ -378,6 +378,10 @@ const Portal = () => {
 
   // if acceptable login info was found and files are available to display
   if (isLoggedIn) {
+    console.log(`files.length: ${files.length}`)
+    console.log(`backupFiles: ${backupFiles}`)
+    console.log(`backupFiles.length: ${backupFiles.length}`)
+
     return (
       <Container style={{ width: "100%", height: "100%", marginTop: "1rem" }}>
         {`   Viewing ${files.length} items in ${
@@ -438,11 +442,20 @@ const Portal = () => {
         />
 
         <Item.Group divided style={{ height: "75vh", overflowY: "auto" }}>
-          {files.length !== backupFiles && files.length ? ( // if items exist
-            files
-          ) : (
-            /* if search filtered out all items */ <h1>No search results</h1>
-          )}
+          {
+            files.length ? (
+              files
+            ) : files.length < backupFiles.length ? (
+              /* if search filtered out all items */ <h1>No search results</h1>
+            ) : (
+              /* no items in results */ <h1>Empty Directory</h1>
+            )
+
+            // (
+            //   // if all items are filtered out of search results
+            //   /* if search filtered out all items */ <h1>No search results</h1>
+            // )
+          }
         </Item.Group>
         <p>{pathName}</p>
       </Container>

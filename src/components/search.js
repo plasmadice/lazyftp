@@ -42,11 +42,11 @@ const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
         action={{
           labelPosition: value.length ? "right" : null,
           icon: value.length ? "remove" : null,
-          color: value.length ? "negative" : "primary",
+          color: value.length ? "red" : "blue",
           content: value.length ? "Clear" : "Search",
           onClick: () => setValue(""),
         }}
-        actionPosition="right"
+        // actionPosition="right"
         icon="search"
         iconPosition="left"
         placeholder="Search/Filter..."
