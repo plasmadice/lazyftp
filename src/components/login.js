@@ -92,7 +92,7 @@ const Login = ({
           checked={admin}
           style={{ textAlign: "center" }}
         />
-        <Button color="blue" onClick={() => login()}>
+        <Button type="submit" color="blue">
           Login
         </Button>
         <Message
