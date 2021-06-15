@@ -254,6 +254,7 @@ const Portal = () => {
                   Right-Click to Open in VLC
                   <Icon name="video" />
                   <video
+                    preload="none"
                     style={{
                       position: "absolute",
                       objectFit: "cover",
