@@ -18,6 +18,7 @@ const ModalButton = () => {
           Report issues on{" "}
           <a
             href="https://github.com/plasmadice/lazy-ftp/issues"
+            rel="noreferrer"
             target="_blank"
           >
             Github

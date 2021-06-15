@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
-import { Input, Button } from "semantic-ui-react"
+import { Input } from "semantic-ui-react"
 
-const Search = ({ files, setFiles, backupFiles, loading, sort }) => {
+const Search = ({ files, setFiles, backupFiles, loading }) => {
   // console.log(setFiles().toString())
   const sortFiles = (data) => {
     // data.forEach((item) => console.log(item.props.name))

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
 import {
   Button,
@@ -136,7 +137,7 @@ const Portal = () => {
 
     // Makes an <Item /> for every item
     const preparedItems = data.map((item, index) => {
-      const copyPath = `ftp://${username}:${password}@${host}${pathName}/${item.name}`
+      // const copyPath = `ftp://${username}:${password}@${host}${pathName}/${item.name}`
 
       const linkPath = `ftp://${username}:${password}@${host}${encodeURI(
         pathName
@@ -356,7 +357,6 @@ const Portal = () => {
   // on pathName or loading change triggers navigate()
   useEffect(() => {
     if (loading) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       navigate()
     }
   }, [pathName, loading])
