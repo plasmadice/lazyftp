@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Lazy FTP - copy ftp: links to clipboard`,
+    title: `Lazy FTP`,
     description: `Stop fighting FTP clients when you just want to watch media from a server. Use this to login and get your fix without the hassle.`,
     author: `Haku`,
   },

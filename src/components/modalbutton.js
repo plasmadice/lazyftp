@@ -8,11 +8,15 @@ const ModalButton = () => {
     <Modal
       closeIcon
       open={open}
-      trigger={<Button>View Updates & Changes (Updated 6/14/2021)</Button>}
+      trigger={
+        <Button>
+          Now lazyftp.com | previously lazyanime.com (click for more)
+        </Button>
+      }
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
     >
-      <Header icon="archive" content="Features & Fixes" />
+      <Header icon="archive" content="Features, Fixes, & News" />
       <Modal.Content>
         <h2>
           Report issues on{" "}
@@ -24,6 +28,15 @@ const ModalButton = () => {
             Github
           </a>
         </h2>
+        <p>
+          -Updated domain and redirecting users from{" "}
+          <a href="https://lazyanime.com/">lazyanime.com</a> to{" "}
+          <a href="https://lazyftp.com/">lazyftp.com</a>
+        </p>
+        <p>
+          -Confirmed normal ftp behavior for servers that require authentication
+          (could use examples of ones that do not)
+        </p>
         <p>-Added search feature</p>
         <p>
           -Enable Support for FTP downloads in Chrome: (copy
