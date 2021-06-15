@@ -194,7 +194,7 @@ const Portal = () => {
               </Button>
               {item.type !== 2 ? ( // show download button if item != folder
                 <>
-                  <Button
+                  {/* <Button
                     as="a"
                     negative
                     rel="noopener"
@@ -208,26 +208,28 @@ const Portal = () => {
                   >
                     Download (experimental)
                     <Icon color="black" name="download" />
-                  </Button>
-                  {/* <Button
+                  </Button> */}
+                  <Button
                     color="teal"
                     target="_blank"
                     size="mini"
                     icon
                     labelPosition="left"
                     onClick={() => {
-                      // opens a new window to attempt to download the item
+                      // opens a new tab to attempt to download the item
                       if (window) {
                         let newWindow = window.open(linkPath, "_blank")
 
                         // Generates countdown that closes window
                         newWindow.count = 3
 
+                        // h1 element + message shown in new tab
                         const message = newWindow.document.createElement("h1")
                         message.innerHTML = `This window should have auto-closed... closing in ${newWindow.count}`
 
                         newWindow.document.body.appendChild(message)
 
+                        // updates message once per second, then closes tab
                         const updateClock = () => {
                           if (newWindow.count > 0) {
                             newWindow.count--
@@ -237,13 +239,14 @@ const Portal = () => {
                           }
                         }
 
+                        // closes new tab within 3 seconds (if download didn't start && tab stays open somehow)
                         newWindow.setInterval(() => updateClock(), 1000)
                       }
                     }}
                   >
-                    Download (2)
+                    Download (Experimental)
                     <Icon color="black" name="download" />
-                  </Button> */}
+                  </Button>
                 </>
               ) : null}
               {isVideo(item.name) ? (
