@@ -363,7 +363,6 @@ const Portal = () => {
   // on data or sort change triggers buildItems()
   useEffect(() => {
     if (data.length) {
-      console.log("builditems")
       // eslint-disable-next-line react-hooks/exhaustive-deps
       buildItems()
     }
@@ -378,10 +377,6 @@ const Portal = () => {
 
   // if acceptable login info was found and files are available to display
   if (isLoggedIn) {
-    console.log(`files.length: ${files.length}`)
-    console.log(`backupFiles: ${backupFiles}`)
-    console.log(`backupFiles.length: ${backupFiles.length}`)
-
     return (
       <Container style={{ width: "100%", height: "100%", marginTop: "1rem" }}>
         {`   Viewing ${files.length} items in ${
