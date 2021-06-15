@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { Form, Button, Checkbox, Message, Ref } from "semantic-ui-react"
+import { Form, Checkbox, Message, Ref } from "semantic-ui-react"
 
 const Login = ({
   error,
@@ -92,9 +92,9 @@ const Login = ({
           checked={admin}
           style={{ textAlign: "center" }}
         />
-        <Button type="submit" color="blue">
+        <Form.Button type="submit" color="blue">
           Login
-        </Button>
+        </Form.Button>
         <Message
           error
           size="small"
