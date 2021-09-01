@@ -6,6 +6,8 @@ const ModalButton = () => {
 
   return (
     <Modal
+      // style={{ maxWidth: "20rem" }}
+      size="small"
       closeIcon
       open={open}
       trigger={
@@ -43,7 +45,7 @@ const ModalButton = () => {
           >
             extension
           </a>
-          .
+          . Confirmed working on Chrome and Edge. May be possible in Firefox and Opera.
         </p>
         <p>
           -Confirmed normal ftp behavior for servers that require authentication
