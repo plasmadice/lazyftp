@@ -380,9 +380,8 @@ const Portal = () => {
   if (isLoggedIn) {
     return (
       <Container style={{ width: "100%", height: "100%", marginTop: "1rem" }}>
-        {`   Viewing ${files.length} items in ${
-          pathName === "" ? "/" : pathName
-        }`}
+        {`   Viewing ${files.length} items in ${pathName === "" ? "/" : pathName
+          }`}
         <TransitionablePortal
           open={copyPortal}
           transition={{ animation: "fade", duration: 600 }}

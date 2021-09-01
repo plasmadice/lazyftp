@@ -17,6 +17,7 @@ Optional: Enable Support for FTP URLs in Chrome (copy `chrome://flags/#enable-ft
 ## Issues:
 
 -Not very descriptive on errors
+-Remove need for environment variables
 
 ### Tech:
 
