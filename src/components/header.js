@@ -3,40 +3,52 @@ import PropTypes from "prop-types"
 import React from "react"
 import ModalButton from "./modalbutton"
 
+const Logo = () => {
+  const styles = {
+    // paddingLeft: `1.45rem`,
+    height: '100%',
+    maxHeight: '13vh',
+  }
+  return <img style={styles} src={'lazyftp.svg'} alt="Logo" />
+}
+
 const Header = ({ siteTitle }) => (
   <header
     style={{
       background: `#00adb5`,
       // marginBottom: `1.45rem`,
-      height: "6rem",
+      height: "13vh",
       display: "flex",
       width: "100%",
       justifyContent: "space-around",
     }}
   >
+
     <div
       style={{
-        // margin: `0 auto`,
-        padding: `1.45rem`,
+        margin: `auto`,
+        padding: `0 1.45rem`,
         flexBasis: "50%",
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
+      <Link
+        to="/"
+        style={{
+          color: `white`,
+          textDecoration: `none`,
+        }}
+      >
+        <Logo />
+      </Link>
     </div>
     <div
       style={{
-        margin: "1rem 0",
+        display: 'flex',
+        width: '100%',
         flexBasis: "50%",
+        margin: 'auto',
+        justifyContent: 'flex-end',
+        padding: `0 1.45rem`,
       }}
     >
       <ModalButton />
