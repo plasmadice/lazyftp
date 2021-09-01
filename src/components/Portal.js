@@ -436,7 +436,7 @@ const Portal = () => {
           loading={loading}
         />
 
-        <Item.Group divided style={{ height: "75vh", overflowY: "auto" }}>
+        <Item.Group divided style={{ height: "70vh", overflowY: "auto" }}>
           {
             files.length ? (
               files

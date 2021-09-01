@@ -7,7 +7,7 @@ const Logo = () => {
   const styles = {
     // paddingLeft: `1.45rem`,
     height: '100%',
-    maxHeight: '13vh',
+    maxHeight: '10vh',
   }
   return <img style={styles} src={'lazyftp.svg'} alt="Logo" />
 }
@@ -17,7 +17,7 @@ const Header = ({ siteTitle }) => (
     style={{
       background: `#00adb5`,
       // marginBottom: `1.45rem`,
-      height: "13vh",
+      height: "10vh",
       display: "flex",
       width: "100%",
       justifyContent: "space-around",
