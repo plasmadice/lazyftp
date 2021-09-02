@@ -12,7 +12,7 @@ const Logo = () => {
   return <img style={styles} src={'lazyftp.svg'} alt="Logo" />
 }
 
-const Header = ({ siteTitle }) => (
+const Header = () => (
   <header
     style={{
       background: `#00adb5`,
