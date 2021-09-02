@@ -11,7 +11,7 @@ const ModalButton = () => {
       closeIcon
       open={open}
       trigger={
-        <Button>
+        <Button size="tiny">
           Now lazyftp.com | previously lazyanime.com (click for more)
         </Button>
       }
@@ -30,6 +30,7 @@ const ModalButton = () => {
             Github
           </a>
         </h2>
+        <p>-In process of adding page visit/access counters</p>
         <p>
           -Updated domain and redirecting users from{" "}
           <a href="https://lazyanime.com/">lazyanime.com</a> to{" "}
