@@ -24,10 +24,10 @@ const Stats = () => {
   fetchData()
 
   return (
-    <Statistic.Group size="mini" style={{ position: 'absolute', top: 0, right: 0, margin: 0 }}>
+    <Statistic.Group size="mini" style={{ position: 'absolute', top: 5, right: 0, margin: 0 }}>
       <Statistic>
-        <Statistic.Value><Icon name='eye' />{' '}{views}</Statistic.Value>
-        <Statistic.Label>visitors</Statistic.Label>
+        <Statistic.Value><Icon name='globe' />{' '}{views}</Statistic.Value>
+        <Statistic.Label>visits</Statistic.Label>
       </Statistic>
     </Statistic.Group>
   )
