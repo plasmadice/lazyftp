@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Statistic } from 'semantic-ui-react'
+import { Icon, Statistic } from 'semantic-ui-react'
 import axios from "axios"
 
 // ftp url pulled in from .env
@@ -26,8 +26,8 @@ const Stats = () => {
   return (
     <Statistic.Group size="mini" style={{ justifyContent: 'flex-end', paddingRight: '2rem' }}>
       <Statistic>
-        <Statistic.Value>{views}</Statistic.Value>
-        <Statistic.Label>Page Views</Statistic.Label>
+        <Statistic.Value><Icon name='eye' />{' '}{views}</Statistic.Value>
+        <Statistic.Label>visitors</Statistic.Label>
       </Statistic>
     </Statistic.Group>
   )

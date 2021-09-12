@@ -22,7 +22,6 @@ const viewStatusUpdate = () => {
     data: { cipherText },
   }).then(() => console.log("Success?"))
 
-  console.log("Ran Through")
 }
 
 export default viewStatusUpdate
