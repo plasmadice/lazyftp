@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon, Statistic } from 'semantic-ui-react'
 import axios from "axios"
 
@@ -7,8 +7,6 @@ const url = process.env.GATSBY_FTPURL
 
 
 const Stats = () => {
-  const [views, setViews] = useState(0)
-
   // axios call to backend
   const fetchData = () => {
     axios({
@@ -21,7 +19,12 @@ const Stats = () => {
     })
   }
 
-  fetchData()
+  const [views, setViews] = useState(0)
+
+  useEffect(() => {
+    console.log("useEffect ran")
+    fetchData()
+  }, [])
 
   return (
     <Statistic.Group size="mini" style={{ position: 'absolute', top: 5, right: 0, margin: 0 }}>
