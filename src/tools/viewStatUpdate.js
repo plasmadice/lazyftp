@@ -4,8 +4,6 @@ var CryptoJS = require("crypto-js")
 const viewStatusUpdate = () => {
   const url = process.env.GATSBY_FTPURL
 
-  console.log("viewStatUpdate called")
-
   // axios call to backend
   const data = {
     siteName: 'lazyftp',
@@ -22,8 +20,7 @@ const viewStatusUpdate = () => {
     method: "post",
     url: `${url}/update`,
     data: { cipherText },
-  }).then(() => console.log("Success?"))
-
+  }).catch(err => console.log(err))
 }
 
 export default viewStatusUpdate
