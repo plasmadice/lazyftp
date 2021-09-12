@@ -21,8 +21,8 @@ const Stats = () => {
 
   const [views, setViews] = useState(0)
 
+  // assures data is only fetched once
   useEffect(() => {
-    console.log("useEffect ran")
     fetchData()
   }, [])
 
