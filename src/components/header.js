@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import React from "react"
 import ModalButton from "./modalbutton"
 import { Grid } from 'semantic-ui-react'
-import Stats from './stats'
 
 
 const Logo = () => {
@@ -59,9 +58,9 @@ const Header = () => (
         <ModalButton />
       </Grid.Row>
 
-      <Grid.Row style={{ paddingRight: '2rem' }}>
+      {/* <Grid.Row style={{ paddingRight: '2rem' }}>
         <Stats />
-      </Grid.Row>
+      </Grid.Row> */}
 
     </Grid>
   </header>

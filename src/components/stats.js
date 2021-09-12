@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Statistic } from 'semantic-ui-react'
+import axios from "axios"
+
+// ftp url pulled in from .env
+const url = process.env.GATSBY_FTPURL
+
 
 const Stats = () => {
+  const [views, setViews] = useState(0)
+
+  // axios call to backend
+  const fetchData = () => {
+    axios({
+      method: "post",
+      url: `${url}/stats`,
+      data: { PASSWORD: process.env.GATSBY_PASSWORD },
+    }).then((res) => {
+      const data = res.data[0] // works as long as there is one site in the array
+      setViews(data.page_visits)
+    })
+  }
+
+  fetchData()
 
   return (
-    <Statistic.Group size="mini">
+    <Statistic.Group size="mini" style={{ justifyContent: 'flex-end', paddingRight: '2rem' }}>
       <Statistic>
-        <Statistic.Value>999</Statistic.Value>
-        <Statistic.Label>These Counters</Statistic.Label>
-      </Statistic>
-      <Statistic>
-        <Statistic.Value>999</Statistic.Value>
-        <Statistic.Label>Do Not</Statistic.Label>
-      </Statistic>
-      <Statistic>
-        <Statistic.Value>999</Statistic.Value>
-        <Statistic.Label>Work Yet</Statistic.Label>
+        <Statistic.Value>{views}</Statistic.Value>
+        <Statistic.Label>Page Views</Statistic.Label>
       </Statistic>
     </Statistic.Group>
   )

@@ -17,6 +17,7 @@ import copy from "copy-text-to-clipboard"
 import Navigation from "./navigation"
 import Login from "./login"
 import date from "date-and-time"
+import Stats from './stats'
 
 var CryptoJS = require("crypto-js")
 var isVideo = require("is-video")
@@ -121,19 +122,6 @@ const Portal = () => {
         f = Math.floor(Math.log(a) / Math.log(c))
       return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f]
     }
-
-    // sorts items based on sort variable
-
-    // // MMM DD h:mm A (momentjs format)
-    // if (sort === "A-Z (Default)") {
-    //   items = arraySort(data, "name")
-    // } else if (sort === "Z-A") {
-    //   items = arraySort(data, "name", { reverse: true })
-    // } else if (sort === "Oldest") {
-    //   items = arraySort(data, "lastModified")
-    // } else if (sort === "Newest") {
-    //   items = arraySort(data, "lastModified", { reverse: true })
-    // }
 
     // Makes an <Item /> for every item
     const preparedItems = data.map((item, index) => {
@@ -453,6 +441,7 @@ const Portal = () => {
           }
         </Item.Group>
         <p>{pathName}</p>
+        <Stats />
       </Container>
     )
   } else if (loading) {
