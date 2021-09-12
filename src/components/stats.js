@@ -24,7 +24,7 @@ const Stats = () => {
   fetchData()
 
   return (
-    <Statistic.Group size="mini" style={{ justifyContent: 'flex-end', paddingRight: '2rem' }}>
+    <Statistic.Group size="mini" style={{ position: 'absolute', top: 0, right: 0, margin: 0 }}>
       <Statistic>
         <Statistic.Value><Icon name='eye' />{' '}{views}</Statistic.Value>
         <Statistic.Label>visitors</Statistic.Label>
