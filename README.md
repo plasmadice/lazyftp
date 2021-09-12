@@ -3,16 +3,15 @@
 `npm i` to install all needed dependancies
 `npm start` to start the frontend
 
-Optional: Install Right-Click to Open in VLC Chrome Extension
-Optional: Enable Support for FTP URLs in Chrome (copy `chrome://flags/#enable-ftp` into URL bar in Chrome and change to `Enabled`)
-
 ### Details
 
 - Encrypted data is sent from the frontend to this server where it is decrypted using a key.
 - Uses a version of crypto-js to encrypt data as it's sent out, and decrypt it on the server side.
-- Only data stored is user's FTP client connection info (which is removed if you hit "Disconnect" or are timed out and attempt to connect.
+- Only FTP data stored is user's FTP client connection info (which is removed if you hit "Disconnect" or are timed out and attempt to connect.
 - Official URL: https://lazyftp.com/
 - Netlify URL: https://lazyftp.netlify.app/
+
+By default this frontend requires access to the [lazyftp backend](https://github.com/plasmadice/lazyftp-backend). The site view uses postgresql integration with Heroku.
 
 ## Issues:
 

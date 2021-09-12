@@ -30,7 +30,7 @@ const ModalButton = () => {
             Github
           </a>
         </h2>
-        <p>-In process of adding page visit/access counters</p>
+        <p>-Visitor count added</p>
         <p>
           -Updated domain and redirecting users from{" "}
           <a href="https://lazyanime.com/">lazyanime.com</a> to{" "}
