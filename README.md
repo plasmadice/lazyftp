@@ -25,8 +25,9 @@ By default this frontend requires access to the [lazyftp backend](https://github
 
 ### Future Feature list
 
-- Give path to view contents
+- Enter path to view contents of directory
 - Display path in faux path bar
+- View multiple directories at once
 - Add .. option in every directory
 - Download media through browser
 - Optionally convert videos to mp4 to view in browser
