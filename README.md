@@ -25,7 +25,10 @@ By default this frontend requires access to the [lazyftp backend](https://github
 
 ### Future Feature list
 
+- Give path to view contents
+- Display path in faux path bar
+- Add .. option in every directory
 - Download media through browser
 - Optionally convert videos to mp4 to view in browser
-- Credentials-store using postgresql
+- ~~Credentials-store using postgresql~~
 - Needs more error reporting
