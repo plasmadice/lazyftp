@@ -12,7 +12,7 @@ const ModalButton = () => {
       open={open}
       trigger={
         <Button size="tiny">
-          Now lazyftp.com | previously lazyanime.com (click for more)
+          Click to view updates and news
         </Button>
       }
       onClose={() => setOpen(false)}
@@ -30,12 +30,24 @@ const ModalButton = () => {
             Github
           </a>
         </h2>
-        <p>-Visitor count added</p>
-        <p>
-          -Updated domain and redirecting users from{" "}
-          <a href="https://lazyanime.com/">lazyanime.com</a> to{" "}
-          <a href="https://lazyftp.com/">lazyftp.com</a>
-        </p>
+        <div style={{margin: 20, padding: 0}}>
+          <h3>Updates</h3>
+          <div style={{margin: 5}}>
+            <b>02/03/2023</b>
+            <p style={{margin: 0}}>-Fixed issue where search was not filtering properly</p>
+            <p style={{margin: 0}}>-Removed site statistics</p>
+            <p style={{margin: 0}}>-Sort by Newest/Oldest fixed</p>
+          </div>
+          <div style={{margin: 5}}>
+            <b>Previous</b>
+            <p>
+              -Updated domain and redirecting users from{" "}
+              <a href="https://lazyanime.com/">lazyanime.com</a> to{" "}
+              <a href="https://lazyftp.com/">lazyftp.com</a>
+            </p>
+          </div>
+        </div>
+        
         <p>
           -Right-Click to Open in VLC using this{" "}
           <a
@@ -52,11 +64,10 @@ const ModalButton = () => {
           -Confirmed normal ftp behavior for servers that require authentication
           (could use examples of ones that do not or examples of it not working)
         </p>
-        <p>-Added search feature</p>
         <p>
           -Enable Support for FTP downloads in Chrome: (copy
           `chrome://flags/#enable-ftp` into URL bar in Chrome and change to
-          `Enabled`) May be removed in future versions
+          `Enabled`) May be removed in future versions of Chrome.
         </p>
 
       </Modal.Content>

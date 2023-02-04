@@ -22,9 +22,9 @@ const Stats = () => {
   const [views, setViews] = useState(0)
 
   // assures data is only fetched once
-  useEffect(() => {
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
 
   return (
     <Statistic.Group size="mini" style={{ position: 'absolute', top: 5, right: 0, margin: 0 }}>

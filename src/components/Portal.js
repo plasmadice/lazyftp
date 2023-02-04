@@ -17,7 +17,7 @@ import copy from "copy-text-to-clipboard"
 import Navigation from "./navigation"
 import Login from "./login"
 import date from "date-and-time"
-import Stats from './stats'
+// import Stats from './stats'
 
 var CryptoJS = require("crypto-js")
 var isVideo = require("is-video")
@@ -71,19 +71,20 @@ const Portal = () => {
     })
       .then((res) => {
         const items = res.data.map((item) => {
+
           let time = date.parse(item.rawModifiedAt, pattern1)
           if (isNaN(time)) {
             time = date.parse(item.rawModifiedAt, pattern2)
+          }
 
-            // issue caused by timestamps without a year / likely modified in last 6 months (180 days)
-            if (time.getFullYear() === 1970) {
-              // If less than 180 days has passed since modified
-              // sets year and tests if valid
-              time.setFullYear(currentYear)
-              if (date.subtract(today, time).toDays() > parseFloat(-180)) {
-              } else {
-                time.setFullYear(currentYear - 1)
-              }
+          // issue caused by timestamps without a year / likely modified in last 6 months (180 days)
+          if (time.getFullYear() === 1970) {
+            // If less than 180 days has passed since modified
+            // sets year and tests if valid
+            time.setFullYear(currentYear)
+            if (date.subtract(today, time).toDays() > parseFloat(-180)) {
+            } else {
+              time.setFullYear(currentYear - 1)
             }
           }
 
@@ -93,6 +94,7 @@ const Portal = () => {
             date: item.rawModifiedAt,
             size: item.size,
             lastModified: time.getTime(),
+            rawSeconds: Date.parse(time)
           }
         })
 
@@ -136,6 +138,7 @@ const Portal = () => {
           key={index}
           name={item.name}
           date={item.date}
+          rawSeconds={item.rawSeconds}
           style={{
             contentVisibility: "auto",
             containIntrinsicSize: "1px 1000px",
@@ -276,9 +279,9 @@ const Portal = () => {
     } else if (sort === "Z-A") {
       sortedItems = arraySort(preparedItems, "props.name", { reverse: true })
     } else if (sort === "Oldest") {
-      sortedItems = arraySort(preparedItems, "props.date")
+      sortedItems = arraySort(preparedItems, "props.rawSeconds")
     } else if (sort === "Newest") {
-      sortedItems = arraySort(preparedItems, "props.date", { reverse: true })
+      sortedItems = arraySort(preparedItems, "props.rawSeconds", { reverse: true })
     }
 
     // rewrites files object and creates backup for search reset
@@ -426,13 +429,9 @@ const Portal = () => {
 
         <Item.Group divided style={{ height: "70vh", overflowY: "auto" }}>
           {
-            files.length ? (
-              files
-            ) : files.length < backupFiles.length ? (
-              /* if search filtered out all items */ <h1>No search results</h1>
-            ) : (
-              /* no items in results */ <h1>Empty Directory</h1>
-            )
+            files.length ? ( files ) 
+              : files.length < backupFiles.length ? ( /* if search filtered out all items */ <h1>No search results</h1> ) 
+              : ( /* no items in results */ <h1>Empty Directory</h1> )
 
             // (
             //   // if all items are filtered out of search results
@@ -441,7 +440,7 @@ const Portal = () => {
           }
         </Item.Group>
         <p>{pathName}</p>
-        <Stats />
+        {/* <Stats /> */}
       </Container>
     )
   } else if (loading) {

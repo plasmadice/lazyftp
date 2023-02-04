@@ -4,34 +4,25 @@ import { Input } from "semantic-ui-react"
 
 const Search = ({ files, setFiles, backupFiles, loading }) => {
   // console.log(setFiles().toString())
-  const sortFiles = (data) => {
-    // data.forEach((item) => console.log(item.props.name))
+  const filterFiles = (data) => {
     const result = data.filter((item) =>
       item.props.name.toLowerCase().includes(value.toLowerCase())
     )
-    console.log(result)
 
     setFiles(result)
   }
   const [value, setValue] = useState("")
 
   useEffect(() => {
-    if (files.length && value.length > 0) {
-      sortFiles(files) // filters search results
-    } else {
+    if (files.length && value.length) {
+      filterFiles(files) // filters search results
+    } else if (!value.length) {
       setFiles(backupFiles) // resets items array
     }
   }, [value])
 
   useEffect(() => {
-    if (value.length > 0 && files.length) {
-      console.log("triggered")
-      sortFiles(files) // filters search results
-    }
-  }, [backupFiles])
-
-  useEffect(() => {
-    // if page changes for any reason
+    // Clear value if the portal reloads (implies we get a new list of files)
     if (!loading) {
       setValue("")
     }
