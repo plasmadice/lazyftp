@@ -19,7 +19,7 @@ const Logo = () => {
 const Header = () => (
   <header
     style={{
-      background: `#00adb5`,
+      background: `#d1f4fa`,
       // marginBottom: `1.45rem`,
       // padding: '5px 0',
       display: "flex",

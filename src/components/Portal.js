@@ -182,7 +182,7 @@ const Portal = () => {
                 }}
               >
                 <Icon color="black" name="copy" />
-                Copy FTP Path
+                Copy Direct Path
               </Button>
               {item.type !== 2 ? ( // show download button if item != folder
                 <>
@@ -202,12 +202,12 @@ const Portal = () => {
                     <Icon color="black" name="download" />
                   </Button> */}
                   <Button
-                    color="teal"
                     target="_blank"
                     size="mini"
                     icon
                     labelPosition="left"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault()
                       // opens a new tab to attempt to download the item
                       if (window) {
                         let newWindow = window.open(linkPath, "_blank")
@@ -236,15 +236,15 @@ const Portal = () => {
                       }
                     }}
                   >
-                    Download (Experimental)
-                    <Icon color="black" name="download" />
+                    Download
+                    <Icon color="blue" name="download" />
                   </Button>
                 </>
               ) : null}
               {isVideo(item.name) ? (
-                <Button size="mini" icon labelPosition="left" color="orange">
+                <Button size="mini" icon labelPosition="left">
                   Right-Click to Open in VLC
-                  <Icon name="video" />
+                  <Icon name="video" color="orange" />
                   <video
                     preload="none"
                     style={{
