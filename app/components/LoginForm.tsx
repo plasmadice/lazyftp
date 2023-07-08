@@ -1,125 +1,134 @@
 "use client" // do not remove this
 
+// import useSWR from 'swr'
 import React from "react"
 import { getProviders, signIn } from "next-auth/react"
 
 type LoginType = "anonymous" | "user" | "admin"
 
+// async function fetcher<JSON = any>(
+//   input: RequestInfo,
+//   init?: RequestInit
+// ): Promise<JSON> {
+//   const res = await fetch(input, init)
+//   return res.json()
+// }
+
+// function useLogin () {
+//   const { data, error, isLoading } = useSWR(`/api/auth/providers`, fetcher)
+
+//   return {
+//     data,
+//     isLoading,
+//     isError: error
+//   }
+// }
+
 export function LoginForm() {
   const [loginType, setLoginType] = React.useState<LoginType>("anonymous")
-  const passkeyRef = React.useRef<HTMLInputElement>(null)
-  const serverRef = React.useRef<HTMLInputElement>(null)
-  const usernameRef = React.useRef<HTMLInputElement>(null)
-  const passwordRef = React.useRef<HTMLInputElement>(null)
+  const hostRef = React.useRef<HTMLInputElement>(null)
+
+  const [adminPasskey, setAdminPasskey] = React.useState<string>("")
+  const [username, setUsername] = React.useState<string>("")
+  const [password, setPassword] = React.useState<string>("")
+  const [host, setHost] = React.useState<string>("")
+  const [port, setPort] = React.useState<string>("")
+  const [errorMessage, setErrorMessage] = React.useState<string>("")
+
+  // React.useEffect(() => {
+  //   if (serverRef?.current) {
+  //     serverRef.current.focus()
+  //   }
+  // }, [])
 
   React.useEffect(() => {
-    
-    if (loginType=== "admin") {
-      passkeyRef.current!.focus()
-    } else if (loginType === "anonymous" || loginType === "user") {
-      serverRef.current!.focus()
+    if (adminPasskey.length) {
+      setLoginType("admin")
+    } else if (username.length) {
+      setLoginType("user")
+    } else {
+      setLoginType("anonymous")
     }
-    
-  }, [loginType])
+  }, [adminPasskey, username])
 
-  // const toggle = () => {
-  //   setIsUserLogin((prev) => {
-  //     if (prev) {
-  //       passkeyRef.current!.value = ""
-  //       usernameRef.current!.value = ""
-  //       passwordRef.current!.value = ""
-  //     }
-  //     return !prev
-  //   })
-  // }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    let res = await signIn("server", {
+      user: username,
+      password,
+      host,
+      port,
+      passkey: adminPasskey,
+      redirect: false,
+    })
 
-  const handleLoginTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    setLoginType(e.target.value as LoginType)
+    console.log('Response', res)
+    // Set the error message if there is an error, else clear it
+
+    if (res?.error) {
+      // parse error
+      let error = res?.error.includes("CredentialsSignin") ? "Invalid credentials" : res?.error
+      setErrorMessage(error)
+    } else {
+      setErrorMessage("")
+    }
   }
 
-  console.log("log in form")
-  console.log('loginType === "anonymous"', loginType === "anonymous")
-  console.log('loginType === "user"', loginType === "user")
-  console.log('loginType === "admin"', loginType === "admin")
+  const handleClear = (e: any) => {
+    e.preventDefault()
+    setHost("")
+    setPassword("")
+    setAdminPasskey("")
+    setUsername("")
+    setErrorMessage("")
+  }
 
   return (
-    <div className="form-control w-full max-w-xs">
-      {/* Radio Buttons */}
-      <div className="form-control">
-        <label className="label cursor-pointer">
-          <span className="label-text">Anonymous Login</span>
-          <input
-            type="radio"
-            name="login-types"
-            value="anonymous"
-            className="radio checked:bg-red-500"
-            checked={loginType === "anonymous"}
-            onChange={handleLoginTypeChange}
-          />
-        </label>
-      </div>
-
-      <div className="form-control">
-        <label className="label cursor-pointer">
-          <span className="label-text">User Login</span>
-          <input
-            type="radio"
-            name="login-types"
-            value="user"
-            className="radio checked:bg-blue-500"
-            checked={loginType === "user"}
-            onChange={handleLoginTypeChange}
-          />
-        </label>
-      </div>
-
-      <div className="form-control">
-        <label className="label cursor-pointer">
-          <span className="label-text">Admin Login</span>
-          <input
-            type="radio"
-            name="login-types"
-            value="admin"
-            className="radio checked:bg-green-500"
-            checked={loginType === "admin"}
-            onChange={handleLoginTypeChange}
-          />
-        </label>
-      </div>
-
+    <form
+      onSubmit={handleSubmit}
+      className="form-control w-full max-w-xs space-y-4"
+    >
       {/* Server login */}
       <label className="label">
-        <span className="label-text">Server Address</span>
-        <span className="label-text-alt">
-          {`${loginType} login`}
-        </span>
+        <span className="label-text">Host</span>
+        <span className="label-text-alt">{`${loginType} login`}</span>
       </label>
       <input
-        ref={serverRef}
         type="text"
-        disabled={loginType === "admin"}
+        value={host}
+        ref={hostRef}
+        onChange={(e) => setHost(e.target.value)}
+        // disabled={loginType === "admin"}
         placeholder="ftp.example.com"
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered !mt-0 w-full max-w-xs"
       />
 
       {/* User login */}
-      <div>
+      <div className="grid grid-cols-1 gap-2">
         <label className="label">
           <span className="label-text-alt">User</span>
         </label>
         <input
-          ref={usernameRef}
           type="text"
-          disabled={loginType !== "user"}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          // disabled={loginType !== "user"}
           placeholder="Username"
           className="input input-bordered w-full max-w-xs"
         />
         <input
-          ref={passwordRef}
           type="password"
-          disabled={loginType !== "user"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <input
+          type="text"
+          value={port}
+          onChange={(e) => setPort(e.target.value)}
+          placeholder="Port"
           className="input input-bordered w-full max-w-xs"
         />
       </div>
@@ -129,12 +138,22 @@ export function LoginForm() {
         <span className="label-text-alt">Admin Passkey</span>
       </label>
       <input
-        ref={passkeyRef}
-        type="text"
-        disabled={loginType !== "admin"}
+        type="password"
+        value={adminPasskey}
+        onChange={(e) => setAdminPasskey(e.target.value)}
+        // disabled={loginType !== "admin"}
         placeholder="Admin key"
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered !mt-0 w-full max-w-xs"
       />
-    </div>
+      {/* Error message */}
+      {errorMessage && <div className="alert alert-warning">{errorMessage}</div>}
+      <button className="btn btn-wide mx-auto bg-primary">Submit</button>
+      <button
+        className="btn btn-wide btn-xs mx-auto bg-secondary"
+        onClick={(e) => handleClear(e)}
+      >
+        Clear
+      </button>
+    </form>
   )
 }

@@ -5,7 +5,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { LoginForm } from "@components"
 
 export default function Home() {
-  console.log('log in main page')
   // const session = await getServerSession(authOptions)
 
   // if (session) {
