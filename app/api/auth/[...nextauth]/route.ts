@@ -51,8 +51,6 @@ export const authOptions: NextAuthOptions = {
           server: cryptr.encrypt(JSON.stringify(server)),
         }
 
-        console.log('user in authorize', user)
-
         if (isAuthorized) {
           return user
         }

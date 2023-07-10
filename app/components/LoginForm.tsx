@@ -2,7 +2,7 @@
 
 // import useSWR from 'swr'
 import React from "react"
-import { getProviders, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 type LoginType = "anonymous" | "user" | "admin"
 
@@ -62,13 +62,14 @@ export function LoginForm() {
       redirect: false,
     })
 
-
-    console.log('Response', res)
+    console.log("Response", res)
     // Set the error message if there is an error, else clear it
 
     if (res?.error) {
       // parse error
-      let error = res?.error.includes("CredentialsSignin") ? "Invalid credentials" : res?.error
+      let error = res?.error.includes("CredentialsSignin")
+        ? "Invalid credentials"
+        : res?.error
       setErrorMessage(error)
     } else {
       setErrorMessage("")
@@ -87,27 +88,36 @@ export function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="form-control w-full max-w-xs space-y-4"
+      className="form-control w-full max-w-sm mx-auto space-y-6 shadow-xl rounded-lg bg-base-300 p-4"
     >
       {/* Server login */}
-      <label className="label">
-        <span className="label-text">Host</span>
-        <span className="label-text-alt">{`${loginType} login`}</span>
-      </label>
-      <input
-        type="text"
-        value={host}
-        ref={hostRef}
-        onChange={(e) => setHost(e.target.value)}
-        // disabled={loginType === "admin"}
-        placeholder="ftp.example.com"
-        className="input input-bordered !mt-0 w-full max-w-xs"
-      />
+      <div className="grid grid-cols-1 gap-2 mx-4">
+        <label className="label">
+          <span className="label-text">Host</span>
+          <span className="label-text-alt">{`${loginType} login`}</span>
+        </label>
+        <input
+          type="text"
+          value={host}
+          ref={hostRef}
+          onChange={(e) => setHost(e.target.value)}
+          // disabled={loginType === "admin"}
+          placeholder="ftp.example.com"
+          className="input input-bordered !mt-0 w-full max-w-xs"
+        />
+        <input
+          type="text"
+          value={port}
+          onChange={(e) => setPort(e.target.value)}
+          placeholder="Port"
+          className="input input-bordered w-full max-w-xs"
+        />
+      </div>
 
       {/* User login */}
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-2 mx-4">
         <label className="label">
-          <span className="label-text-alt">User</span>
+          <span className="label-text">User</span>
         </label>
         <input
           type="text"
@@ -124,36 +134,35 @@ export function LoginForm() {
           placeholder="Password"
           className="input input-bordered w-full max-w-xs"
         />
-        <input
-          type="text"
-          value={port}
-          onChange={(e) => setPort(e.target.value)}
-          placeholder="Port"
-          className="input input-bordered w-full max-w-xs"
-        />
       </div>
 
       {/* Admin login */}
-      <label className="label">
-        <span className="label-text-alt">Admin Passkey</span>
-      </label>
-      <input
-        type="password"
-        value={adminPasskey}
-        onChange={(e) => setAdminPasskey(e.target.value)}
-        // disabled={loginType !== "admin"}
-        placeholder="Admin key"
-        className="input input-bordered !mt-0 w-full max-w-xs"
-      />
+      <div className="grid grid-cols-1 gap-2 mx-4">
+        <label className="label">
+          <span className="label-text">Admin Passkey</span>
+        </label>
+        <input
+          type="password"
+          value={adminPasskey}
+          onChange={(e) => setAdminPasskey(e.target.value)}
+          // disabled={loginType !== "admin"}
+          placeholder="Admin key"
+          className="input input-bordered !mt-0 w-full max-w-xs"
+        />
+      </div>
       {/* Error message */}
-      {errorMessage && <div className="alert alert-warning">{errorMessage}</div>}
-      <button className="btn btn-wide mx-auto bg-primary">Submit</button>
-      <button
-        className="btn btn-wide btn-xs mx-auto bg-secondary"
-        onClick={(e) => handleClear(e)}
-      >
-        Clear
-      </button>
+      {errorMessage && (
+        <div className="alert alert-warning">{errorMessage}</div>
+      )}
+      <div className="grid grid-cols-2 gap-2">
+        <button className="btn btn-primary mx-auto">Submit</button>
+        <button
+          className="btn btn-secondary mx-auto"
+          onClick={(e) => handleClear(e)}
+        >
+          Clear
+        </button>
+      </div>
     </form>
   )
 }

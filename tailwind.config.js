@@ -4,4 +4,8 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["cupcake", "aqua"],
+    darkTheme: "aqua"
+  }
 }
